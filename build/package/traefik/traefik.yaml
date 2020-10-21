@@ -1,0 +1,22 @@
+log:
+  level: DEBUG
+  filepath: "/etc/traefik/log/traefik.log"
+
+api:
+  dashboard: true
+  insecure: true
+  debug: true
+
+entryPoints:
+  web:
+    address: ":80"
+  mongo-port:
+    address: ":27017"
+
+providers:
+  docker: { }
+
+#  file:
+#    filename: "/etc/traefik/routes.yml"
+#    watch: true
+

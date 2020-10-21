@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:latest
+    container_name: reverse-proxy
+    # Enables the web UI and tells Traefik to listen to docker
+    ports:
+      # he HTTP port
+      - 80:80
+      # The Web UI (enabled by --api.insecure=true)
+      - 8080:8080
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ../package/traefik/traefik.yaml:/etc/traefik/traefik.yaml:ro
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo-local-loyalty
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_DATABASE=loyalty-dlt
+    volumes:
+      - ~/loyalty-volumes/mongo-volume:/data/db
+    ports:
+      - 37017:27017
+    hostname: mongo.local
+    domainname: db.local
+    labels:
+      - "traefik.tcp.routers.mongo.entrypoints=mongo-port"
+      - "traefik.tcp.routers.mongo.rule=HostSNI(`*`)"
+
+  whoami:
+    # A container that exposes an API to show its IP address
+    image: traefik/whoami
+    container_name: whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=PathPrefix(`/whoami`)"
+
+  company:
+    build:
+      context: ../../.
+      dockerfile: service/company/Dockerfile
+    container_name: company
+    depends_on:
+      - reverse-proxy
+      - mongo
+    expose:
+      - 9001
+      - 9101
+    labels:
+      - "traefik.http.routers.company.entrypoints=web"
+      - "traefik.http.routers.company.rule=PathPrefix(`/companies`)"

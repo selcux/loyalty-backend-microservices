@@ -1,0 +1,18 @@
+db_properties:
+  mongo:
+    connection_string: mongodb://mongo-local-loyalty:27017
+    db_name: loyalty-dlt
+    collections:
+      company: companies
+      product: products
+
+grpc_services:
+  item:
+    host: item
+    port: 9104
+  campaign:
+    host: campaign
+    port: 9107
+  consumer:
+    host: consumer
+    port: 9102
