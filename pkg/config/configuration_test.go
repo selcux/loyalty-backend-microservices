@@ -50,13 +50,10 @@ func TestConfig_MongoProps(t *testing.T) {
 
 	mongoProps := config.MongoProps()
 
-	log.Printf("\n%+v", config)
-
 	g.Expect(mongoProps).ShouldNot(gomega.BeNil())
 	g.Expect(mongoProps.DbName).Should(gomega.BeEquivalentTo("loyalty-dlt"))
 	g.Expect(mongoProps.ConnectionString).Should(gomega.BeEquivalentTo("mongodb://mongo-local-loyalty:27017"))
 	g.Expect(mongoProps.Collections).ShouldNot(gomega.BeEmpty())
 	g.Expect(mongoProps.Collections).Should(gomega.HaveLen(2))
-	//g.Expect(mongoProps.Collections).Should(gomega.ContainElement())
 	g.Expect(mongoProps.Collections).Should(gomega.BeEquivalentTo(map[string]string{"company": "companies", "product": "products"}))
 }

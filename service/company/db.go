@@ -5,18 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"github.com/labstack/gommon/log"
+	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/config"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
-	"os"
-)
-
-const (
-	dbConnectionString string = "DB_CONN_STR"
-	dbName             string = "DB_NAME"
-	dbCollection       string = "DB_COMPANY_COLLECTION"
 )
 
 type DbInterface interface {
@@ -36,8 +30,14 @@ type Db struct {
 }
 
 func NewDb() (*Db, error) {
+	conf, err := config.NewConfig()
+	if err != nil {
+		return nil, err
+	}
+	mongoProps := conf.MongoProps()
+
 	ctx := context.TODO()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv(dbConnectionString)))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoProps.ConnectionString))
 
 	if err != nil {
 		return nil, err
@@ -48,13 +48,10 @@ func NewDb() (*Db, error) {
 		return nil, err
 	}
 
-	name := os.Getenv(dbName)
-	collection := os.Getenv(dbCollection)
-
 	return &Db{
 		ctx:        ctx,
 		client:     client,
-		collection: client.Database(name).Collection(collection),
+		collection: client.Database(mongoProps.DbName).Collection(mongoProps.Collections["company"]),
 	}, nil
 }
 
@@ -80,7 +77,7 @@ func (db *Db) Read(id string) (*Company, error) {
 	var companyData *Company
 	err = db.collection.FindOne(db.ctx, filter).Decode(&companyData)
 	if err != nil {
-		return nil, errors.New("not found")
+		return nil, err
 	}
 
 	return companyData, nil
