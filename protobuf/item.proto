@@ -1,0 +1,37 @@
+// [START declaration]
+syntax = "proto3";
+package item;
+// [END declaration]
+
+
+// [START go_declaration]
+option go_package = "pkg/grpc/item";
+// [END go_declaration]
+
+// [START messages]
+service Item {
+  rpc Create(CreateItemDto) returns (CreateResponse);
+  rpc ItemExists(ItemExistsRequest) returns (ItemExistsResponse);
+}
+
+message CreateItemDto {
+  string Name = 1;
+  string Company = 2;
+  string Product = 3;
+  int32 Point = 4;
+  string Code = 5;
+}
+
+message CreateResponse {
+  bool Fail = 1;
+}
+
+message ItemExistsRequest {
+  string ID = 1;
+}
+
+message ItemExistsResponse {
+  bool Found = 1;
+}
+
+// [END messages]

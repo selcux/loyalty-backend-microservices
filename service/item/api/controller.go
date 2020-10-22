@@ -1,20 +1,17 @@
-package company
+package api
 
 import (
 	"github.com/labstack/echo"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
+	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item"
 	"net/http"
 )
 
 type Controller struct {
 }
 
-func NewController() *Controller {
-	return &Controller{}
-}
-
 func (c *Controller) Create(ctx echo.Context) error {
-	vm := new(CreateDto)
+	vm := new(item.CreateDto)
 	if err := ctx.Bind(vm); err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
@@ -23,68 +20,68 @@ func (c *Controller) Create(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
-	cdb, err := NewDb()
+	idb, err := item.NewDb()
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
 	defer func() {
-		if err := cdb.Close(); err != nil {
+		if err := idb.Close(); err != nil {
 			ctx.Logger().Error(err)
 		}
 	}()
 
-	company, err := cdb.Create(vm)
+	itm, err := idb.Create(vm)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
-	return ctx.JSON(http.StatusCreated, util.CreateOkResponse(company))
+	return ctx.JSON(http.StatusCreated, util.CreateOkResponse(itm))
 }
 
 func (c *Controller) Read(ctx echo.Context) error {
-	cdb, err := NewDb()
+	idb, err := item.NewDb()
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
 	defer func() {
-		if err := cdb.Close(); err != nil {
+		if err := idb.Close(); err != nil {
 			ctx.Logger().Error(err)
 		}
 	}()
 
-	paramId := ctx.Param("id")
-	company, err := cdb.Read(paramId)
+	itemId := ctx.Param("id")
+	itm, err := idb.Read(itemId)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
-	return ctx.JSON(http.StatusOK, util.CreateOkResponse(company))
+	return ctx.JSON(http.StatusOK, util.CreateOkResponse(itm))
 }
 
 func (c *Controller) ReadAll(ctx echo.Context) error {
-	cdb, err := NewDb()
+	idb, err := item.NewDb()
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
 	defer func() {
-		if err := cdb.Close(); err != nil {
+		if err := idb.Close(); err != nil {
 			ctx.Logger().Error(err)
 		}
 	}()
 
-	companies, err := cdb.ReadAll()
+	items, err := idb.ReadAll()
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
-	return ctx.JSON(http.StatusOK, util.CreateOkResponse(companies))
+	return ctx.JSON(http.StatusOK, util.CreateOkResponse(items))
 }
 
 func (c *Controller) Update(ctx echo.Context) error {
-	vm := new(UpdateDto)
+	vm := new(item.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
@@ -93,44 +90,48 @@ func (c *Controller) Update(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
-	cdb, err := NewDb()
+	idb, err := item.NewDb()
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
 	defer func() {
-		if err := cdb.Close(); err != nil {
+		if err := idb.Close(); err != nil {
 			ctx.Logger().Error(err)
 		}
 	}()
 
 	paramId := ctx.Param("id")
 
-	err = cdb.Update(paramId, vm)
+	itm, err := idb.Update(paramId, vm)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
-	return ctx.JSON(http.StatusOK, util.CreateOkResponse(nil))
+	return ctx.JSON(http.StatusOK, util.CreateOkResponse(itm))
 }
 
 func (c *Controller) Delete(ctx echo.Context) error {
-	cdb, err := NewDb()
+	idb, err := item.NewDb()
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
 	defer func() {
-		if err := cdb.Close(); err != nil {
+		if err := idb.Close(); err != nil {
 			ctx.Logger().Error(err)
 		}
 	}()
 
 	paramId := ctx.Param("id")
-	err = cdb.Delete(paramId)
+	err = idb.Delete(paramId)
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
 
 	return ctx.JSON(http.StatusNoContent, nil)
+}
+
+func NewController() *Controller {
+	return &Controller{}
 }

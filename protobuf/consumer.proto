@@ -1,0 +1,40 @@
+// [START declaration]
+syntax = "proto3";
+package consumer;
+// [END declaration]
+
+
+// [START go_declaration]
+option go_package = "pkg/grpc/consumer";
+// [END go_declaration]
+
+// [START messages]
+service Consumer {
+  rpc Wallet(WalletRequest) returns (WalletResponse);
+  rpc AddToWallet(AddRequest) returns (EmptyResponse);
+  rpc RemoveFromWallet(RemoveRequest) returns (EmptyResponse);
+}
+
+message WalletRequest {
+  string ConsumerId = 1;
+}
+
+message WalletResponse {
+  map<string, int32> Items = 1;
+}
+
+message AddRequest {
+  string ConsumerId = 1;
+  string ItemId = 2;
+}
+
+message RemoveRequest {
+  string ConsumerId = 1;
+  string ItemId = 2;
+  int32 Quantity = 3;
+}
+
+message EmptyResponse {
+}
+
+// [END messages]

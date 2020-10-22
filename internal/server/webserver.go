@@ -39,7 +39,7 @@ func (server *WebServer) RegisterRoutes(f func(e *echo.Echo)) {
 	f(server.e)
 }
 
-func (server *WebServer) Run(host string, port uint) {
+func (server *WebServer) Run(host string, port int) {
 	// Start server
 	go func() {
 		if err := server.e.Start(fmt.Sprintf("%s:%d", host, port)); err != nil {

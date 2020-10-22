@@ -54,6 +54,12 @@ func TestConfig_MongoProps(t *testing.T) {
 	g.Expect(mongoProps.DbName).Should(gomega.BeEquivalentTo("loyalty-dlt"))
 	g.Expect(mongoProps.ConnectionString).Should(gomega.BeEquivalentTo("mongodb://mongo-local-loyalty:27017"))
 	g.Expect(mongoProps.Collections).ShouldNot(gomega.BeEmpty())
-	g.Expect(mongoProps.Collections).Should(gomega.HaveLen(2))
-	g.Expect(mongoProps.Collections).Should(gomega.BeEquivalentTo(map[string]string{"company": "companies", "product": "products"}))
+	g.Expect(mongoProps.Collections).Should(gomega.HaveLen(5))
+	g.Expect(mongoProps.Collections).Should(gomega.BeEquivalentTo(map[string]string{
+		"product":  "products",
+		"consumer": "consumers",
+		"item":     "items",
+		"company":  "companies",
+		"merchant": "merchants",
+	}))
 }

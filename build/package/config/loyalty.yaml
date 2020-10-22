@@ -5,14 +5,32 @@ db_properties:
     collections:
       company: companies
       product: products
+      consumer: consumers
+      item: items
+      merchant: merchants
 
-grpc_services:
-  item:
-    host: item
-    port: 9104
-  campaign:
-    host: campaign
-    port: 9107
+services:
+  api_service:
+    host: apiservice
+    api_port: 9000
+    grpc_port: 9100
+  company:
+    host: company
+    api_port: 9001
+    grpc_port: 9101
   consumer:
     host: consumer
-    port: 9102
+    api_port: 9002
+    grpc_port: 9102
+  item:
+    host: item
+    api_port: 9004
+    grpc_port: 9104
+  merchant:
+    host: merchant
+    api_port: 9006
+    grpc_port: 9106
+  campaign:
+    host: campaign
+    api_port: 9007
+    grpc_port: 9107

@@ -43,9 +43,8 @@ services:
     container_name: apiservice
     depends_on:
       - reverse-proxy
-    expose:
-      - 9000
-      - 9010
+    volumes:
+      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
 
   company:
     build:
@@ -55,9 +54,38 @@ services:
     depends_on:
       - reverse-proxy
       - mongo
-    expose:
-      - 9001
-      - 9101
     volumes:
       - ../package/config/loyalty.yaml:/etc/loyalty.yaml
 
+  consumer:
+    build:
+      context: ../../.
+      dockerfile: service/consumer/Dockerfile
+    container_name: consumer
+    depends_on:
+      - reverse-proxy
+      - mongo
+    volumes:
+      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+
+  item:
+    build:
+      context: ../../.
+      dockerfile: service/item/Dockerfile
+    container_name: item
+    depends_on:
+      - reverse-proxy
+      - mongo
+    volumes:
+      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+
+  merchant:
+    build:
+      context: ../../.
+      dockerfile: service/merchant/Dockerfile
+    container_name: merchant
+    depends_on:
+      - reverse-proxy
+      - mongo
+    volumes:
+      - ../package/config/loyalty.yaml:/etc/loyalty.yaml

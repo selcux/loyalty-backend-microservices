@@ -1,4 +1,7 @@
-.PHONY: build clean-images
+.PHONY: protos build clean-images
+
+protos:
+	protoc -I protobuf/ protobuf/*.proto --go_out=plugins=grpc:.
 
 clean-images:
 	@echo "---------------- Cleaning dangling Docker images ----------------"

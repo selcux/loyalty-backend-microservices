@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/config"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/company/api"
+	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant/api"
 	"log"
 )
 
@@ -16,14 +16,14 @@ func main() {
 
 	srv := server.NewWebServer()
 	srv.RegisterRoutes(RegisterRoutes)
-	srv.Run("", conf.Services["company"].ApiPort)
+	srv.Run("", conf.Services["merchant"].ApiPort)
 }
 
 func RegisterRoutes(e *echo.Echo) {
-	companyController := api.NewController()
-	e.POST("/", companyController.Create)
-	e.GET("/:id", companyController.Read)
-	e.GET("/", companyController.ReadAll)
-	e.PUT("/:id", companyController.Update)
-	e.DELETE("/:id", companyController.Delete)
+	merchantController := api.NewController()
+	e.POST("/", merchantController.Create)
+	e.GET("/:id", merchantController.Read)
+	e.GET("/", merchantController.ReadAll)
+	e.PUT("/:id", merchantController.Update)
+	e.DELETE("/:id", merchantController.Delete)
 }

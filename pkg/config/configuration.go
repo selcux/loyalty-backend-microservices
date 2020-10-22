@@ -33,14 +33,15 @@ type Database struct {
 	DbName           string `yaml:"db_name"`
 }
 
-type GrpcService struct {
-	Host string `yaml:"host"`
-	Port int    `yaml:"port"`
+type Service struct {
+	Host     string `yaml:"host"`
+	ApiPort  int    `yaml:"api_port"`
+	GrpcPort int    `yaml:"grpc_port"`
 }
 
 type Config struct {
-	DbProperties DbProperties           `yaml:"db_properties"`
-	GrpcServices map[string]GrpcService `yaml:"grpc_services"`
+	DbProperties DbProperties       `yaml:"db_properties"`
+	Services     map[string]Service `yaml:"services"`
 }
 
 func (c *Config) MongoProps() Mongo {
