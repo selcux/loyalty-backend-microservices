@@ -2,6 +2,8 @@ package client
 
 import (
 	"context"
+	"fmt"
+	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/config"
 
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/grpc/item"
 	"google.golang.org/grpc"
@@ -24,7 +26,13 @@ func NewItemService() *ItemService {
 }
 
 func (itemSvc *ItemService) Connect() error {
-	conn, err := grpc.Dial("item:9014", grpc.WithInsecure())
+	conf, err := config.NewConfig()
+	if err != nil {
+		return err
+	}
+	target := fmt.Sprintf("%s:%d", conf.Services["item"].Host, conf.Services["item"].GrpcPort)
+
+	conn, err := grpc.Dial(target, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}

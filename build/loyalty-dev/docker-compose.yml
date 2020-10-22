@@ -89,3 +89,14 @@ services:
       - mongo
     volumes:
       - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+
+  product:
+    build:
+      context: ../../.
+      dockerfile: service/product/Dockerfile
+    container_name: product
+    depends_on:
+      - reverse-proxy
+      - mongo
+    volumes:
+      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
