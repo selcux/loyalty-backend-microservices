@@ -33,9 +33,8 @@ func TestConfigStructure(t *testing.T) {
 func TestConfiguration_Load(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 	reader := new(TestConfig)
-	config, err := initializeConfig(reader)
+	config := NewConfig(reader)
 
-	g.Expect(err).ShouldNot(gomega.HaveOccurred())
 	g.Expect(config).ShouldNot(gomega.BeNil())
 }
 
@@ -43,9 +42,8 @@ func TestConfig_MongoProps(t *testing.T) {
 	g := gomega.NewGomegaWithT(t)
 
 	reader := new(TestConfig)
-	config, err := initializeConfig(reader)
+	config := NewConfig(reader)
 
-	g.Expect(err).ShouldNot(gomega.HaveOccurred())
 	g.Expect(config).ShouldNot(gomega.BeNil())
 
 	mongoProps := config.MongoProps()

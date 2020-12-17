@@ -1,8 +1,10 @@
 package config
 
 import (
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"log"
+
+	"gopkg.in/yaml.v2"
 )
 
 const configFilePath = "/etc/loyalty.yaml"
@@ -39,9 +41,16 @@ type Service struct {
 	GrpcPort int    `yaml:"grpc_port"`
 }
 
+type Chaincode struct {
+	ServerAddressTemplate string `yaml:"server_address_template"`
+	Port                  int    `yaml:"port"`
+	PackageLocation       string `yaml:"package_location"`
+}
+
 type Config struct {
 	DbProperties DbProperties       `yaml:"db_properties"`
 	Services     map[string]Service `yaml:"services"`
+	CC           Chaincode          `yaml:"chaincode"`
 }
 
 func (c *Config) MongoProps() Mongo {
@@ -51,23 +60,33 @@ func (c *Config) MongoProps() Mongo {
 type YamlConfig struct {
 }
 
-func (y *YamlConfig) ReadFile() ([]byte, error) {
+func (y YamlConfig) ReadFile() ([]byte, error) {
 	return ioutil.ReadFile(configFilePath)
 }
 
-func initializeConfig(reader FileReader) (*Config, error) {
+func NewYamlConfig() FileReader {
+	return new(YamlConfig)
+}
+
+func initConfig(reader FileReader) *Config {
 	configData := new(Config)
 	data, err := reader.ReadFile()
 	if err != nil {
-		return nil, err
+		log.Fatalf("Unable to read %s\n %v", configFilePath, err)
 	}
 
 	err = yaml.Unmarshal(data, configData)
+	if err != nil {
+		log.Fatalf("Unable to unmarshal config %v", err)
+	}
 
-	return configData, err
+	return configData
 }
 
-func NewConfig() (*Config, error) {
-	reader := new(YamlConfig)
-	return initializeConfig(reader)
+func NewConfig(reader FileReader) *Config {
+	return initConfig(reader)
+}
+
+type BaseConfig struct {
+	Config *Config
 }

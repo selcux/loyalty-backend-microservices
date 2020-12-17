@@ -4,18 +4,15 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/config"
+	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item/api"
 )
 
 func main() {
-	conf, err := config.NewConfig()
-	if err != nil {
-		log.Fatalf("Unable to read loyalty.yaml %v", err)
-	}
-
+	conf := di.InitializeConfig()
 	itemService := item.NewItemService()
+
 	go func() {
 		err := itemService.Run("", conf.Services["item"].GrpcPort)
 		if err != nil {

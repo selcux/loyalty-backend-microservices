@@ -5,17 +5,12 @@ import (
 	"github.com/labstack/echo"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/config"
-	"log"
+	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"net/http"
 )
 
 func main() {
-	conf, err := config.NewConfig()
-	if err != nil {
-		log.Fatalf("Unable to read loyalty.yaml %v", err)
-	}
-
+	conf := di.InitializeConfig()
 	srv := server.NewWebServer()
 	srv.RegisterRoutes(RegisterRoutes)
 	srv.Run("", conf.Services["api_service"].ApiPort)

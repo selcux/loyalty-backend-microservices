@@ -38,3 +38,12 @@ services:
     host: campaign
     api_port: 9007
     grpc_port: 9107
+  fabric:
+    host: fabric
+    api_port: 9008
+    grpc_port: 9108
+
+chaincode:
+  server_address_template: "{{.}}.org1.example.com"
+  port: 9999
+  package_location: "/tmp"

@@ -28,3 +28,25 @@ test:
 	@go test -v --bench -json ./... --benchmem
 
 clean: clean-images destroy
+
+# test network path needs to be added to $PATH
+
+NETWORK_SH_PATH = $$(which network.sh)
+TEST_NETWORK_PATH = $$(dirname $(NETWORK_SH_PATH))
+test-network-up:
+	echo $(NETWORK_SH_PATH)
+	echo $(TEST_NETWORK_PATH)
+	cd $(TEST_NETWORK_PATH) && \
+	pwd && \
+	network.sh up createChannel -ca -c mychannel -s couchdb
+
+test-network-down:
+	cd $(TEST_NETWORK_PATH) && \
+	pwd && \
+	sudo network.sh down
+
+destroy-chaincodes:
+	docker ps --filter name='loyalty-cc-*' --filter status='exited' -aq | xargs docker rm
+
+destroy-with-chaincodes: destroy destroy-chaincodes
+

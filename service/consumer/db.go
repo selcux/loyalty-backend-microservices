@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/labstack/gommon/log"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/config"
+	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -32,10 +32,7 @@ type Db struct {
 }
 
 func NewDb() (*Db, error) {
-	conf, err := config.NewConfig()
-	if err != nil {
-		return nil, err
-	}
+	conf := di.InitializeConfig()
 	mongoProps := conf.MongoProps()
 
 	ctx := context.TODO()

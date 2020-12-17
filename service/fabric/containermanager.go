@@ -5,7 +5,6 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
-	"github.com/docker/docker/pkg/stdcopy"
 	"io"
 	"os"
 )
@@ -45,7 +44,6 @@ func (c *ContainerManager) RunContainer(name string) (string, error) {
 
 	resp, err := cli.ContainerCreate(ctx, &container.Config{
 		Image: "alpine",
-		Cmd:   []string{"echo", "hello world"},
 		Tty:   false,
 	}, nil, nil, nil, containerPrefix+name)
 	if err != nil {
@@ -64,13 +62,14 @@ func (c *ContainerManager) RunContainer(name string) (string, error) {
 		}
 	case <-statusCh:
 	}
+	/*
+		out, err := cli.ContainerLogs(ctx, resp.ID, types.ContainerLogsOptions{ShowStdout: true})
+		if err != nil {
+			return "", err
+		}
 
-	out, err := cli.ContainerLogs(ctx, resp.ID, types.ContainerLogsOptions{ShowStdout: true})
-	if err != nil {
-		return "", err
-	}
-
-	_, err = stdcopy.StdCopy(os.Stdout, os.Stderr, out)
+		_, err = stdcopy.StdCopy(os.Stdout, os.Stderr, out)
+	*/
 
 	return resp.ID, err
 }

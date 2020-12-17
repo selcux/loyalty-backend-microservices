@@ -1,0 +1,17 @@
+// [START declaration]
+syntax = "proto3";
+package chaincode;
+// [END declaration]
+
+// [START go_declaration]
+option go_package = "pkg/grpc/chaincode";
+// [END go_declaration]
+
+// [START messages]
+service FabricChaincode { rpc Up(ChaincodeRequest) returns (EmptyResponse); }
+
+message ChaincodeRequest { string Name = 1; }
+
+message EmptyResponse {}
+
+// [END messages]
