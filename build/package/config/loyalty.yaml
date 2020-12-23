@@ -43,7 +43,10 @@ services:
     api_port: 9008
     grpc_port: 9108
 
-chaincode:
+fabric_network:
   server_address_template: "{{.}}.org1.example.com"
   port: 9999
   package_location: "/tmp"
+  peer_address_definition: "peer[0-9]+.org[0-9]+.example.com"
+  network-config: FABRIC_NETWORK_CONFIG  # /path/to/configtx.yaml
+  env-script: FABRIC_NETWORK_ENV_SCRIPT # /path/to/envVar.sh

@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 const configFilePath = "/etc/loyalty.yaml"
@@ -41,16 +41,19 @@ type Service struct {
 	GrpcPort int    `yaml:"grpc_port"`
 }
 
-type Chaincode struct {
+type FabNetwork struct {
 	ServerAddressTemplate string `yaml:"server_address_template"`
 	Port                  int    `yaml:"port"`
 	PackageLocation       string `yaml:"package_location"`
+	PeerAddressDefinition string `yaml:"peer_address_definition"`
+	NetworkConfigFile     string `yaml:"network-config"`
+	EnvScript             string `yaml:"env-script"`
 }
 
 type Config struct {
-	DbProperties DbProperties       `yaml:"db_properties"`
-	Services     map[string]Service `yaml:"services"`
-	CC           Chaincode          `yaml:"chaincode"`
+	DbProperties  DbProperties       `yaml:"db_properties"`
+	Services      map[string]Service `yaml:"services"`
+	FabricNetwork FabNetwork         `yaml:"fabric_network"`
 }
 
 func (c *Config) MongoProps() Mongo {
