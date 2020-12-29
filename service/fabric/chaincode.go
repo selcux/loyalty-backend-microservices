@@ -115,36 +115,6 @@ func (c *ExternalCcConfig) Install(ccPackPath string) error {
 }
 
 func (c *ExternalCcConfig) getOrganizations() (int, error) {
-	/*	ctx := context.Background()
-		cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
-		if err != nil {
-			return nil, err
-		}
-		defer cli.Close()
-
-		containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
-		if err != nil {
-			return nil, err
-		}
-
-		r, err := regexp.Compile(peerAddressDefinition)
-		if err != nil {
-			return nil, err
-		}
-
-		peers := make([]types.Container, 0)
-		for _, container := range containers {
-			for _, name := range container.Names {
-				if r.MatchString(name) {
-					peers = append(peers, container)
-					break
-				}
-			}
-		}
-
-		return peers, nil
-	*/
-
 	fabricNetwork := c.Config.FabricNetwork
 	networkConfigFile := os.Getenv(fabricNetwork.NetworkConfigFile)
 	source, err := ioutil.ReadFile(networkConfigFile)
@@ -169,53 +139,6 @@ func (c *ExternalCcConfig) getOrganizations() (int, error) {
 }
 
 func (c *ExternalCcConfig) installCCPack(orgCount int, ccPackPath string) ([]string, error) {
-	/*
-		ctx := context.Background()
-		cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
-		if err != nil {
-			return nil, err
-		}
-		defer cli.Close()
-
-		c := types.ExecConfig{
-			AttachStdout: true,
-			AttachStderr: true,
-			Cmd: []string{
-				"peer", "lifecycle", "chaincode", "install", ccPackPath,
-			},
-			Env: []string{
-				"CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt",
-				"CORE_PEER_MSPCONFIGPATH=",
-			},
-		}
-
-		outputs := make([]string, 0)
-
-		for _, peer := range peers {
-			execID, err := cli.ContainerExecCreate(ctx, peer.ID, c)
-			if err != nil {
-				return nil, err
-			}
-
-			resp, err := cli.ContainerExecAttach(ctx, execID.ID, types.ExecStartCheck{})
-			if err != nil {
-				return nil, err
-			}
-			var buf bytes.Buffer
-			_, err = io.Copy(&buf, resp.Reader)
-			if err != nil {
-				return nil, err
-			}
-			outputs = append(outputs, buf.String())
-
-			err = cli.ContainerExecStart(ctx, execID.ID, types.ExecStartCheck{})
-			if err != nil {
-				return nil, err
-			}
-		}
-
-		return outputs, nil
-	*/
 	if ccPackPath == "" {
 		return nil, errors.New("invalid package file")
 	}
