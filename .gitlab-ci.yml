@@ -1,11 +1,14 @@
-image: golang:latest
+image: docker:latest
+
+variables:
+  DOCKER_DRIVER: overlay
+
+services:
+  - docker:dind
 
 stages:
   - build
   - test
-
-services:
-  - golang:latest
 
 before_script:
 #  - apt-get remove docker docker-engine docker.io containerd runc -y
