@@ -1,0 +1,18 @@
+stages:
+  - build
+  - test
+
+before_script:
+  - docker info
+
+build-services-job:
+  stage: build
+  script:
+    - echo "Check the `make` version, then build some Makefile project files:"
+    - make -v
+    - make build
+
+test-code-job:
+  stage: test
+  script:
+    - make test
