@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"

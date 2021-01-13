@@ -5,7 +5,7 @@ import (
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant"
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type Controller struct {

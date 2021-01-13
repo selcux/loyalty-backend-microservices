@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant/api"

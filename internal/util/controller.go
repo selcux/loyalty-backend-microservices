@@ -2,7 +2,7 @@ package util
 
 import (
 	"encoding/json"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type CrudControllerInterface interface {
