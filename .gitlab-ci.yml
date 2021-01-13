@@ -3,7 +3,7 @@ stages:
   - test
 
 before_script:
-  - apt-get update -y
+  - apt update -y
   - apt install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
   - apt-key fingerprint 0EBFCD88
@@ -11,6 +11,8 @@ before_script:
   - apt update -y
   - apt install build-essential -y
   - apt install docker-ce docker-ce-cli containerd.io -y
+  - systemctl enable docker
+  - systemctl start docker
   - docker info
 
 build-services-job:
