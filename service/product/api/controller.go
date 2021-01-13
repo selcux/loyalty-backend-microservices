@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/client"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/grpc/item"

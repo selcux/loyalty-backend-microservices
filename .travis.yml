@@ -1,0 +1,22 @@
+language: go
+
+services:
+  - docker
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "cf9aa966-bde2-4a9a-8708-71b4134bd510"
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.27.4
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+script:
+  - make build
+  - make run

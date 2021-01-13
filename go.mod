@@ -18,9 +18,10 @@ require (
 	github.com/google/wire v0.4.0
 	github.com/gosimple/slug v1.9.0
 	github.com/konsorten/go-windows-terminal-sequences v1.0.3 // indirect
-	github.com/labstack/echo v3.3.10+incompatible
+	github.com/labstack/echo/v4 v4.1.17
 	github.com/labstack/gommon v0.3.0
 	github.com/leodido/go-urn v1.2.0 // indirect
+	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/nxadm/tail v1.4.5 // indirect
 	github.com/onsi/ginkgo v1.14.2
@@ -30,12 +31,15 @@ require (
 	github.com/sirupsen/logrus v1.7.0 // indirect
 	github.com/spf13/cobra v1.1.1
 	github.com/spf13/viper v1.7.0
+	github.com/yuin/goldmark v1.3.1 // indirect
 	go.mongodb.org/mongo-driver v1.4.2
-	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
+	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad // indirect
 	golang.org/x/mod v0.4.0 // indirect
-	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
-	golang.org/x/sys v0.0.0-20201029080932-201ba4db2418 // indirect
-	golang.org/x/tools v0.0.0-20201215192005-fa10ef0b8743 // indirect
+	golang.org/x/net v0.0.0-20201224014010-6772e930b67b // indirect
+	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a // indirect
+	golang.org/x/sys v0.0.0-20210112091331-59c308dcf3cc // indirect
+	golang.org/x/text v0.3.5 // indirect
+	golang.org/x/tools v0.0.0-20210102185154-773b96fafca2 // indirect
 	google.golang.org/genproto v0.0.0-20201021134325-0d71844de594 // indirect
 	google.golang.org/grpc v1.33.1
 	google.golang.org/protobuf v1.25.0
