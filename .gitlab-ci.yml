@@ -3,7 +3,7 @@ stages:
   - test
 
 before_script:
-  - apt-get remove docker docker-engine docker.io containerd runc -y
+#  - apt-get remove docker docker-engine docker.io containerd runc -y
   - apt-get update -y
   - apt-get install \
     apt-transport-https \
