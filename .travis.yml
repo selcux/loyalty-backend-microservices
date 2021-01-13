@@ -20,7 +20,3 @@ before_install:
 script:
   - make build
   - make run
-
-branches:
-  only:
-    - campaign-service
