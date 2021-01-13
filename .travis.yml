@@ -6,7 +6,7 @@ services:
 deploy:
   provider: heroku
   api_key:
-    secure: "cf9aa966-bde2-4a9a-8708-71b4134bd510"
+    secure: Dd+0Tv6WSggj+mIGyuf/5ObWdhIAdtAfz9l6Bes8vRQHLLsN/asccs1L3HCHFAUAGuUpLYPuqfKllStdGsS7LuNECp7on5m9gcs02cPigEK9Ti707mKQrYf+1iy6h/HIAs9NMyuEH/STVzbfb3WtTK6Lm2HT0JLRcB+Z1PUobt5xpAdyUa6DaIoiOAQXUv17/txggnh9A9GTuP4053t6zelt9D53MP2NUVn3uJmJRzQeBwqLtOSKUwLn+YF2/Acc5nQDeiUZGwNOPlBo/a+36mwnAQ3sUbyPtsTlYdV3bgJoAnY9YPZpfMaD74v0sxXq69AMnZVVvc8wp8me2e0ytqkvsclMtxM6zLPVU6zl4SiyFmJERTbJD0+jMSsSWTDJGdq9K+grm6vb5lcG9aA5oBFB9OuAdDt8yjE6X5zLZXEH1HdM1Vyt39ZdpA/rr9w4GlOQOLzDsro45RG+fH4VjCJcvG75A3I8NS0rFGZx+lpvu3JLEqOrKApre6JFMMfx6qF88+Jm96lv8HmUlatWDqolaNkj333M3w77zGu+3pggQq7MqlJU3QJrLS5S/xPDQvCKMBpKNB+Sar3Ej1qpLkgUCii1KZGQDJKPrSOR1Ho+KMfjFepbcf2Z/Rtuxga505fisamfWU1DbcixkzbRq++wmmcTzPjXSBN0J42fdaE=
 
 env:
   - DOCKER_COMPOSE_VERSION=1.27.4
@@ -19,4 +19,3 @@ before_install:
 
 script:
   - make build
-  - make run
