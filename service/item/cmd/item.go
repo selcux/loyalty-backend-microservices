@@ -3,12 +3,18 @@ package main
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
+	echoSwagger "github.com/swaggo/echo-swagger"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item/api"
 )
 
+// @title Item API
+// @description This is the item API of LoyaltyDLT project
+// @version 1.0
+// @host localhost:80
+// @BasePath /api/v1
 func main() {
 	conf := di.InitializeConfig()
 	itemService := item.NewItemService()
@@ -27,9 +33,14 @@ func main() {
 
 func RegisterRoutes(e *echo.Echo) {
 	itemController := api.NewController()
-	e.POST("/", itemController.Create)
-	e.GET("/:id", itemController.Read)
-	e.GET("/", itemController.ReadAll)
-	e.PATCH("/:id", itemController.Update)
-	e.DELETE("/:id", itemController.Delete)
+
+	v1 := e.Group("/api/v1")
+	{
+		v1.POST("/", itemController.Create)
+		v1.GET("/:id", itemController.Read)
+		v1.GET("/", itemController.ReadAll)
+		v1.PATCH("/:id", itemController.Update)
+		v1.DELETE("/:id", itemController.Delete)
+	}
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 }

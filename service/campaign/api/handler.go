@@ -1,9 +1,10 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/campaign/model"
-	"net/http"
 )
 
 type handler struct {

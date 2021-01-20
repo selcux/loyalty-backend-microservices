@@ -1,10 +1,11 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/company"
-	"net/http"
 )
 
 type Controller struct {
@@ -14,6 +15,16 @@ func NewController() *Controller {
 	return &Controller{}
 }
 
+// Create godoc
+// @Summary Create a company
+// @Description Create a new company
+// @Tags company
+// @Accept json
+// @Produce json
+// @Param company body company.CreateDto true "New Company"
+// @Success 201 {object} company.CreateDto
+// @Failure 400 {object} HTTPError
+// @Router /company [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(company.CreateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -43,6 +54,16 @@ func (c *Controller) Create(ctx echo.Context) error {
 	return ctx.JSON(http.StatusCreated, util.CreateOkResponse(companyData))
 }
 
+// Read godoc
+// @Summary Read a company data
+// @Description Get a company data
+// @Tags company
+// @Accept json
+// @Produce json
+// @Param company body model.Company true "Read Company"
+// @Success 201 {object} model.Company
+// @Failure 400 {object} HTTPError
+// @Router /company [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	cdb, err := company.NewDb()
 	if err != nil {
@@ -64,6 +85,16 @@ func (c *Controller) Read(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(companyData))
 }
 
+// ReadAll godoc
+// @Summary Read all company data
+// @Description Get all companies
+// @Tags company
+// @Accept json
+// @Produce json
+// @Param company body model.Company true "Read Companies"
+// @Success 201 {object} model.Company
+// @Failure 400 {object} HTTPError
+// @Router /company [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	cdb, err := company.NewDb()
 	if err != nil {
@@ -84,6 +115,16 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(companies))
 }
 
+// Update godoc
+// @Summary Update a company data
+// @Description Update a company data
+// @Tags company
+// @Accept json
+// @Produce json
+// @Param company body model.Company true "Update Company"
+// @Success 201 {object} model.Company
+// @Failure 400 {object} HTTPError
+// @Router /company [put]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(company.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -115,6 +156,16 @@ func (c *Controller) Update(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(nil))
 }
 
+// Delete godoc
+// @Summary Delete a company data
+// @Description Delete a company data
+// @Tags company
+// @Accept json
+// @Produce json
+// @Param company body model.Company true "Delete Company"
+// @Success 201 {object} model.Company
+// @Failure 400 {object} HTTPError
+// @Router /company [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	cdb, err := company.NewDb()
 	if err != nil {
