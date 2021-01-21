@@ -15,6 +15,7 @@ type Servicer interface {
 
 type Service struct {
 	server.GrpcServer
+	consumergrpc.UnimplementedConsumerServer
 }
 
 func NewConsumerService() *Service {

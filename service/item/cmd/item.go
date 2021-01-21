@@ -34,14 +34,10 @@ func main() {
 
 func RegisterRoutes(e *echo.Echo) {
 	itemController := api.NewController()
-
-	v1 := e.Group("/")
-	{
-		v1.POST("/", itemController.Create)
-		v1.GET("/:id", itemController.Read)
-		v1.GET("/", itemController.ReadAll)
-		v1.PATCH("/:id", itemController.Update)
-		v1.DELETE("/:id", itemController.Delete)
-	}
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.POST("/", itemController.Create)
+	e.GET("/:id", itemController.Read)
+	e.GET("/", itemController.ReadAll)
+	e.PATCH("/:id", itemController.Update)
+	e.DELETE("/:id", itemController.Delete)
 }

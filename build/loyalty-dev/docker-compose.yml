@@ -39,7 +39,7 @@ services:
   apiservice:
     build:
       context: ../../.
-      dockerfile: ./service/api-service/Dockerfile
+      dockerfile: service/api-service/Dockerfile
     container_name: apiservice
     depends_on:
       - reverse-proxy

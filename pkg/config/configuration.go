@@ -1,10 +1,9 @@
 package config
 
 import (
+	"gopkg.in/yaml.v3"
 	"io/ioutil"
 	"log"
-
-	"gopkg.in/yaml.v2"
 )
 
 const configFilePath = "/etc/loyalty.yaml"

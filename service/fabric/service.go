@@ -13,6 +13,7 @@ type Servicer interface {
 
 type Service struct {
 	server.GrpcServer
+	ccgrpc.UnimplementedFabricChaincodeServer
 }
 
 func NewChaincodeService() *Service {

@@ -16,6 +16,7 @@ type Servicer interface {
 
 type Service struct {
 	server.GrpcServer
+	itemgrpc.UnimplementedItemServer
 }
 
 func NewItemService() *Service {
