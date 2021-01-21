@@ -1,0 +1,168 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the campaign API of LoyaltyDLT project",
+        "title": "Campaign API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:80",
+    "basePath": "/",
+    "paths": {
+        "/campaigns": {
+            "post": {
+                "description": "Create a new campaign",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "campaign"
+                ],
+                "summary": "Create a campaign",
+                "parameters": [
+                    {
+                        "description": "New Campaign",
+                        "name": "campaign",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Campaign"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/model.Campaign"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/util.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.Campaign": {
+            "type": "object",
+            "required": [
+                "components",
+                "name",
+                "private_key",
+                "public_key"
+            ],
+            "properties": {
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.Container"
+                    }
+                },
+                "consumer_age": {
+                    "type": "string"
+                },
+                "consumer_freq": {
+                    "type": "string"
+                },
+                "distribution": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "partnered": {
+                    "type": "boolean"
+                },
+                "private_key": {
+                    "type": "string"
+                },
+                "public_key": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ComponentComponent": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                },
+                "benefits": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "city": {
+                    "type": "string"
+                },
+                "distributor": {
+                    "type": "string"
+                },
+                "district": {
+                    "type": "string"
+                },
+                "expiration": {
+                    "type": "boolean"
+                },
+                "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "paid": {
+                    "type": "boolean"
+                },
+                "tasks": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "tier": {
+                    "type": "integer"
+                }
+            }
+        },
+        "model.Container": {
+            "type": "object",
+            "required": [
+                "component",
+                "component_type",
+                "order"
+            ],
+            "properties": {
+                "component": {
+                    "description": "Component     json.RawMessage `json:\"component\" validate:\"required\"`",
+                    "$ref": "#/definitions/model.ComponentComponent"
+                },
+                "component_type": {
+                    "type": "string"
+                },
+                "order": {
+                    "type": "integer"
+                }
+            }
+        },
+        "util.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

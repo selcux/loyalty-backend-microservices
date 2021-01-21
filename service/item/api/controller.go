@@ -1,15 +1,26 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item"
-	"net/http"
 )
 
 type Controller struct {
 }
 
+// Create godoc
+// @Summary Create an item data
+// @Description Create an item data
+// @Tags item
+// @Accept json
+// @Produce json
+// @Param item body item.CreateDto true "Create an item"
+// @Success 201 {object} item.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(item.CreateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -39,6 +50,16 @@ func (c *Controller) Create(ctx echo.Context) error {
 	return ctx.JSON(http.StatusCreated, util.CreateOkResponse(itm))
 }
 
+// Read godoc
+// @Summary Read an item data
+// @Description Read an item data
+// @Tags item
+// @Accept json
+// @Produce json
+// @Param item body item.Entity true "Read an item"
+// @Success 201 {object} item.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	idb, err := item.NewDb()
 	if err != nil {
@@ -60,6 +81,16 @@ func (c *Controller) Read(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(itm))
 }
 
+// ReadAll godoc
+// @Summary Read all items
+// @Description Read all items
+// @Tags item
+// @Accept json
+// @Produce json
+// @Param item body []item.Entity true "Read all items"
+// @Success 201 {object} []item.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	idb, err := item.NewDb()
 	if err != nil {
@@ -80,6 +111,16 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(items))
 }
 
+// Update godoc
+// @Summary Update an item
+// @Description Update an item
+// @Tags item
+// @Accept json
+// @Produce json
+// @Param item body item.UpdateDto true "Update all items"
+// @Success 201 {object} item.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(item.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -111,6 +152,16 @@ func (c *Controller) Update(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(itm))
 }
 
+// Delete godoc
+// @Summary Delete an item
+// @Description Delete an item
+// @Tags item
+// @Accept json
+// @Produce json
+// @Param item body item.Entity true "Delete an item"
+// @Success 201 {object} item.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	idb, err := item.NewDb()
 	if err != nil {

@@ -1,12 +1,13 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/client"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/grpc/item"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/product"
-	"net/http"
 )
 
 type Controller struct {
@@ -16,6 +17,16 @@ func NewController() *Controller {
 	return &Controller{}
 }
 
+// Create godoc
+// @Summary Create a product
+// @Description Create a new product
+// @Tags product
+// @Accept json
+// @Produce json
+// @Param product body product.CreateDto true "New Product"
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(product.CreateDto)
 	vm.Company = ctx.Request().Header.Get("Company")
@@ -67,6 +78,16 @@ func (c *Controller) Create(ctx echo.Context) error {
 	return ctx.JSON(http.StatusCreated, util.CreateOkResponse(productData))
 }
 
+// Read godoc
+// @Summary Read a product data
+// @Description Get a product data
+// @Tags product
+// @Accept json
+// @Produce json
+// @Param product body product.Product true "Read Product"
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	pdb, err := product.NewDb()
 	if err != nil {
@@ -88,6 +109,16 @@ func (c *Controller) Read(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(product))
 }
 
+// ReadAll godoc
+// @Summary Read all product data
+// @Description Get all products
+// @Tags product
+// @Accept json
+// @Produce json
+// @Param product body []product.Product true "Read Products"
+// @Success 201 {object} []product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	pdb, err := product.NewDb()
 	if err != nil {
@@ -108,6 +139,16 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(products))
 }
 
+// Update godoc
+// @Summary Update a product data
+// @Description Update a product data
+// @Tags product
+// @Accept json
+// @Produce json
+// @Param product body product.UpdateDto true "Update Product"
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(product.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -139,6 +180,16 @@ func (c *Controller) Update(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(product))
 }
 
+// Delete godoc
+// @Summary Delete a product data
+// @Description Delete a product data
+// @Tags product
+// @Accept json
+// @Produce json
+// @Param product body product.Product true "Delete Product"
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	pdb, err := product.NewDb()
 	if err != nil {
