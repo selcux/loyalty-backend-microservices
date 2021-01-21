@@ -1,9 +1,10 @@
 package api
 
 import (
+	"net/http"
+
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
@@ -15,6 +16,16 @@ func NewController() *Controller {
 	return &Controller{}
 }
 
+// Create godoc
+// @Summary Create a merchant
+// @Description Create a new merchant
+// @Tags merchant
+// @Accept json
+// @Produce json
+// @Param merchant body merchant.CreateDto true "New Merchant"
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(merchant.CreateDto)
 
@@ -45,6 +56,16 @@ func (c *Controller) Create(ctx echo.Context) error {
 	return ctx.JSON(http.StatusCreated, util.CreateOkResponse(merchantData))
 }
 
+// Read godoc
+// @Summary Read a merchant data
+// @Description Get a merchant data
+// @Tags merchant
+// @Accept json
+// @Produce json
+// @Param merchant body merchant.Merchant true "Read Merchant"
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	mdb, err := merchant.NewDb()
 	if err != nil {
@@ -66,6 +87,16 @@ func (c *Controller) Read(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(merchantData))
 }
 
+// ReadAll godoc
+// @Summary Read all merchant data
+// @Description Get all merchants
+// @Tags merchant
+// @Accept json
+// @Produce json
+// @Param merchant body []merchant.Merchant true "Read Merchants"
+// @Success 201 {object} []merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	mdb, err := merchant.NewDb()
 	if err != nil {
@@ -86,6 +117,16 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(merchants))
 }
 
+// Update godoc
+// @Summary Update a merchant data
+// @Description Update a merchant data
+// @Tags merchant
+// @Accept json
+// @Produce json
+// @Param merchant body merchant.UpdateDto true "Update Merchant"
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants/{id} [put]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(merchant.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -116,6 +157,16 @@ func (c *Controller) Update(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(merchantData))
 }
 
+// Delete godoc
+// @Summary Delete a merchant data
+// @Description Delete a merchant data
+// @Tags merchant
+// @Accept json
+// @Produce json
+// @Param merchant body merchant.Merchant true "Delete Merchant"
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	mdb, err := merchant.NewDb()
 	if err != nil {

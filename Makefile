@@ -13,7 +13,7 @@ build-images:
 ifdef IMAGE
 	$(BUILD_COMMAND) $(IMAGE)
 else
-	$(BUILD_COMMAND) --parallel
+	$(BUILD_COMMAND)
 endif
 
 build: build-images clean-images

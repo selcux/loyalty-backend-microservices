@@ -1,0 +1,237 @@
+basePath: /
+definitions:
+  consumer.CreateDto:
+    properties:
+      email:
+        type: string
+      lastname:
+        type: string
+      name:
+        type: string
+    required:
+    - email
+    - lastname
+    - name
+    type: object
+  consumer.Entity:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      lastname:
+        type: string
+      name:
+        type: string
+      wallet:
+        additionalProperties:
+          type: integer
+        type: object
+    required:
+    - email
+    - lastname
+    - name
+    type: object
+  consumer.ItemDto:
+    properties:
+      id:
+        type: string
+    required:
+    - id
+    type: object
+  util.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:80
+info:
+  contact: {}
+  description: This is the consumer API of LoyaltyDLT project
+  title: Consumer API
+  version: "1.0"
+paths:
+  /consumers:
+    get:
+      consumes:
+      - application/json
+      description: Get all consumer data
+      parameters:
+      - description: Read all consumer
+        in: body
+        name: consumer
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/consumer.Entity'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/consumer.Entity'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Read all consumer data
+      tags:
+      - consumer
+    post:
+      consumes:
+      - application/json
+      description: Create a consumer data
+      parameters:
+      - description: Create consumer
+        in: body
+        name: consumer
+        required: true
+        schema:
+          $ref: '#/definitions/consumer.CreateDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/consumer.Entity'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Create a consumer data
+      tags:
+      - consumer
+  /consumers/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a consumer data
+      parameters:
+      - description: Delete a consumer
+        in: body
+        name: consumer
+        required: true
+        schema:
+          $ref: '#/definitions/consumer.Entity'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/consumer.Entity'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Delete a consumer data
+      tags:
+      - consumer
+    get:
+      consumes:
+      - application/json
+      description: Get a consumer data
+      parameters:
+      - description: Read consumer
+        in: body
+        name: consumer
+        required: true
+        schema:
+          $ref: '#/definitions/consumer.Entity'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/consumer.Entity'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Read a consumer data
+      tags:
+      - consumer
+    patch:
+      consumes:
+      - application/json
+      description: Update a consumer data
+      parameters:
+      - description: Update a consumer
+        in: body
+        name: consumer
+        required: true
+        schema:
+          $ref: '#/definitions/consumer.Entity'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/consumer.Entity'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Update a consumer data
+      tags:
+      - consumer
+  /consumers/{id}/add:
+    put:
+      consumes:
+      - application/json
+      description: Update a consumer data by adding an item to consumer's wallet
+      parameters:
+      - description: Update a consumer wallet
+        in: body
+        name: consumer
+        required: true
+        schema:
+          $ref: '#/definitions/consumer.ItemDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/consumer.ItemDto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Add an item to consumer's wallet
+      tags:
+      - consumer
+  /consumers/{id}/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Update a consumer data by remove an item from consumer's wallet
+      parameters:
+      - description: Remove from the consumer wallet
+        in: body
+        name: consumer
+        required: true
+        schema:
+          $ref: '#/definitions/consumer.ItemDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/consumer.ItemDto'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Remove an item from consumer's wallet
+      tags:
+      - consumer
+swagger: "2.0"

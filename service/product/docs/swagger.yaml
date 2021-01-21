@@ -1,0 +1,190 @@
+basePath: /
+definitions:
+  product.CreateDto:
+    properties:
+      code:
+        type: string
+      company:
+        description: 'TODO: string?'
+        type: string
+      name:
+        type: string
+      point:
+        type: integer
+    required:
+    - code
+    - company
+    - name
+    - point
+    type: object
+  product.Product:
+    properties:
+      code:
+        type: string
+      company:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      point:
+        type: integer
+    required:
+    - code
+    - company
+    - name
+    - point
+    type: object
+  product.UpdateDto:
+    properties:
+      code:
+        type: string
+      name:
+        type: string
+    required:
+    - code
+    type: object
+  util.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:80
+info:
+  contact: {}
+  description: This is the product API of LoyaltyDLT project
+  title: Product API
+  version: "1.0"
+paths:
+  /products:
+    get:
+      consumes:
+      - application/json
+      description: Get all products
+      parameters:
+      - description: Read Products
+        in: body
+        name: product
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/product.Product'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/product.Product'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Read all product data
+      tags:
+      - product
+    post:
+      consumes:
+      - application/json
+      description: Create a new product
+      parameters:
+      - description: New Product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/product.CreateDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/product.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Create a product
+      tags:
+      - product
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a product data
+      parameters:
+      - description: Delete Product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/product.Product'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/product.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Delete a product data
+      tags:
+      - product
+    get:
+      consumes:
+      - application/json
+      description: Get a product data
+      parameters:
+      - description: Read Product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/product.Product'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/product.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Read a product data
+      tags:
+      - product
+    patch:
+      consumes:
+      - application/json
+      description: Update a product data
+      parameters:
+      - description: Update Product
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/product.UpdateDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/product.Product'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Update a product data
+      tags:
+      - product
+swagger: "2.0"
