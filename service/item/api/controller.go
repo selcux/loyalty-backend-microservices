@@ -18,9 +18,9 @@ type Controller struct {
 // @Accept json
 // @Produce json
 // @Param item body item.CreateDto true "Create an item"
-// @Success 201 {object} item.CreateDto
-// @Failure 400 {object} HTTPError
-// @Router /item [post]
+// @Success 201 {object} item.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(item.CreateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -58,8 +58,8 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Produce json
 // @Param item body item.Entity true "Read an item"
 // @Success 201 {object} item.Entity
-// @Failure 400 {object} HTTPError
-// @Router /item [get]
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	idb, err := item.NewDb()
 	if err != nil {
@@ -89,7 +89,7 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Produce json
 // @Param item body []item.Entity true "Read all items"
 // @Success 201 {object} []item.Entity
-// @Failure 400 {object} HTTPError
+// @Failure 400 {object} util.ErrorResponse
 // @Router /items [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	idb, err := item.NewDb()
@@ -118,9 +118,9 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Accept json
 // @Produce json
 // @Param item body item.UpdateDto true "Update all items"
-// @Success 201 {object} item.UpdateDto
-// @Failure 400 {object} HTTPError
-// @Router /item [patch]
+// @Success 201 {object} item.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(item.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -160,8 +160,8 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Produce json
 // @Param item body item.Entity true "Delete an item"
 // @Success 201 {object} item.Entity
-// @Failure 400 {object} HTTPError
-// @Router /item [delete]
+// @Failure 400 {object} util.ErrorResponse
+// @Router /items/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	idb, err := item.NewDb()
 	if err != nil {

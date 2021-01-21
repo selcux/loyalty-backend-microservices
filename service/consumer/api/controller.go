@@ -24,9 +24,9 @@ func NewController() *Controller {
 // @Accept json
 // @Produce json
 // @Param consumer body consumer.CreateDto true "Create consumer"
-// @Success 201 {object} consumer.CreateDto
-// @Failure 400 {object} HTTPError
-// @Router /consumer [post]
+// @Success 201 {object} consumer.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /consumers [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(consumer.CreateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -62,10 +62,10 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Tags consumer
 // @Accept json
 // @Produce json
-// @Param consumer body model.Consumer true "Read consumer"
-// @Success 201 {object} model.Consumer
-// @Failure 400 {object} HTTPError
-// @Router /consumer [get]
+// @Param consumer body consumer.Entity true "Read consumer"
+// @Success 201 {object} consumer.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /consumers/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	cdb, err := consumer.NewDb()
 	if err != nil {
@@ -93,10 +93,10 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Tags consumer
 // @Accept json
 // @Produce json
-// @Param consumer body []model.Consumer true "Read all consumer"
-// @Success 201 {object} []model.Consumer
-// @Failure 400 {object} HTTPError
-// @Router /consumer [get]
+// @Param consumer body []consumer.Entity true "Read all consumer"
+// @Success 201 {object} []consumer.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /consumers [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	cdb, err := consumer.NewDb()
 	if err != nil {
@@ -123,10 +123,10 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Tags consumer
 // @Accept json
 // @Produce json
-// @Param consumer body consumer.UpdateDto true "Update a consumer"
-// @Success 201 {object} consumer.UpdateDto
-// @Failure 400 {object} HTTPError
-// @Router /consumer [patch]
+// @Param consumer body consumer.Entity true "Update a consumer"
+// @Success 201 {object} consumer.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /consumers/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(consumer.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -164,10 +164,10 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Tags consumer
 // @Accept json
 // @Produce json
-// @Param consumer body model.Consumer true "Delete a consumer"
-// @Success 201 {object} model.Consumer
-// @Failure 400 {object} HTTPError
-// @Router /consumer [delete]
+// @Param consumer body consumer.Entity true "Delete a consumer"
+// @Success 201 {object} consumer.Entity
+// @Failure 400 {object} util.ErrorResponse
+// @Router /consumers/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	cdb, err := consumer.NewDb()
 	if err != nil {
@@ -197,8 +197,8 @@ func (c *Controller) Delete(ctx echo.Context) error {
 // @Produce json
 // @Param consumer body consumer.ItemDto true "Update a consumer wallet"
 // @Success 201 {object} consumer.ItemDto
-// @Failure 400 {object} HTTPError
-// @Router /consumer [put]
+// @Failure 400 {object} util.ErrorResponse
+// @Router /consumers/{id}/add [put]
 func (c *Controller) Add(ctx echo.Context) error {
 	vm := new(consumer.ItemDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -253,8 +253,8 @@ func (c *Controller) Add(ctx echo.Context) error {
 // @Produce json
 // @Param consumer body consumer.ItemDto true "Remove from the consumer wallet"
 // @Success 201 {object} consumer.ItemDto
-// @Failure 400 {object} HTTPError
-// @Router /consumer [delete]
+// @Failure 400 {object} util.ErrorResponse
+// @Router /consumers/{id}/delete [delete]
 func (c *Controller) Remove(ctx echo.Context) error {
 	vm := new(consumer.ItemDto)
 	if err := ctx.Bind(vm); err != nil {

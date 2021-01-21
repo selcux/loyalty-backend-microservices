@@ -8,6 +8,7 @@ import (
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/consumer"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/consumer/api"
+	_ "gitlab.com/adesso-turkey/loyalty-backend-microservices/service/consumer/docs"
 )
 
 // @title Consumer API

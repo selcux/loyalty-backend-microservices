@@ -6,13 +6,14 @@ import (
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant/api"
+	_ "gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant/docs"
 )
 
 // @title Merchant API
 // @description This is the merchant API of LoyaltyDLT project
 // @version 1.0
 // @host localhost:80
-// @BasePath /api/v1
+// @BasePath /
 func main() {
 	conf := di.InitializeConfig()
 	srv := server.NewWebServer()
@@ -22,7 +23,7 @@ func main() {
 
 func RegisterRoutes(e *echo.Echo) {
 	merchantController := api.NewController()
-	v1 := e.Group("/api/v1")
+	v1 := e.Group("/")
 	{
 		v1.POST("/", merchantController.Create)
 		v1.GET("/:id", merchantController.Read)

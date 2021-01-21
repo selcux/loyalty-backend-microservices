@@ -1,0 +1,112 @@
+basePath: /
+definitions:
+  model.Campaign:
+    properties:
+      components:
+        items:
+          $ref: '#/definitions/model.Container'
+        type: array
+      consumer_age:
+        type: string
+      consumer_freq:
+        type: string
+      distribution:
+        type: string
+      name:
+        type: string
+      partnered:
+        type: boolean
+      private_key:
+        type: string
+      public_key:
+        type: string
+      timestamp:
+        type: integer
+    required:
+    - components
+    - name
+    - private_key
+    - public_key
+    type: object
+  model.ComponentComponent:
+    properties:
+      address:
+        type: string
+      benefits:
+        additionalProperties:
+          type: integer
+        type: object
+      city:
+        type: string
+      distributor:
+        type: string
+      district:
+        type: string
+      expiration:
+        type: boolean
+      items:
+        additionalProperties:
+          type: integer
+        type: object
+      paid:
+        type: boolean
+      tasks:
+        additionalProperties:
+          type: integer
+        type: object
+      tier:
+        type: integer
+    type: object
+  model.Container:
+    properties:
+      component:
+        $ref: '#/definitions/model.ComponentComponent'
+        description: Component     json.RawMessage `json:"component" validate:"required"`
+      component_type:
+        type: string
+      order:
+        type: integer
+    required:
+    - component
+    - component_type
+    - order
+    type: object
+  util.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:80
+info:
+  contact: {}
+  description: This is the campaign API of LoyaltyDLT project
+  title: Campaign API
+  version: "1.0"
+paths:
+  /campaigns:
+    post:
+      consumes:
+      - application/json
+      description: Create a new campaign
+      parameters:
+      - description: New Campaign
+        in: body
+        name: campaign
+        required: true
+        schema:
+          $ref: '#/definitions/model.Campaign'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Campaign'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Create a campaign
+      tags:
+      - campaign
+swagger: "2.0"

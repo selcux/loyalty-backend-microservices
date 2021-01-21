@@ -6,13 +6,14 @@ import (
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/product/api"
+	_ "gitlab.com/adesso-turkey/loyalty-backend-microservices/service/product/docs"
 )
 
 // @title Product API
 // @description This is the product API of LoyaltyDLT project
 // @version 1.0
 // @host localhost:80
-// @BasePath /api/v1
+// @BasePath /
 func main() {
 	conf := di.InitializeConfig()
 	srv := server.NewWebServer()
@@ -22,7 +23,7 @@ func main() {
 
 func RegisterRoutes(e *echo.Echo) {
 	productController := api.NewController()
-	v1 := e.Group("/api/v1")
+	v1 := e.Group("/")
 	{
 		v1.POST("/", productController.Create)
 		v1.GET("/:id", productController.Read)

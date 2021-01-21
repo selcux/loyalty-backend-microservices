@@ -23,9 +23,9 @@ func NewController() *Controller {
 // @Accept json
 // @Produce json
 // @Param merchant body merchant.CreateDto true "New Merchant"
-// @Success 201 {object} merchant.CreateDto
-// @Failure 400 {object} HTTPError
-// @Router /merchant [post]
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(merchant.CreateDto)
 
@@ -62,10 +62,10 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Tags merchant
 // @Accept json
 // @Produce json
-// @Param merchant body model.Merchant true "Read Merchant"
-// @Success 201 {object} model.Merchant
-// @Failure 400 {object} HTTPError
-// @Router /merchant [get]
+// @Param merchant body merchant.Merchant true "Read Merchant"
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	mdb, err := merchant.NewDb()
 	if err != nil {
@@ -93,10 +93,10 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Tags merchant
 // @Accept json
 // @Produce json
-// @Param merchant body []model.Merchant true "Read Merchants"
-// @Success 201 {object} []model.Merchant
-// @Failure 400 {object} HTTPError
-// @Router /merchant [get]
+// @Param merchant body []merchant.Merchant true "Read Merchants"
+// @Success 201 {object} []merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	mdb, err := merchant.NewDb()
 	if err != nil {
@@ -124,9 +124,9 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Accept json
 // @Produce json
 // @Param merchant body merchant.UpdateDto true "Update Merchant"
-// @Success 201 {object} merchant.UpdateDto
-// @Failure 400 {object} HTTPError
-// @Router /merchant [put]
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants/{id} [put]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(merchant.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -163,10 +163,10 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Tags merchant
 // @Accept json
 // @Produce json
-// @Param merchant body model.Merchant true "Delete Merchant"
-// @Success 201 {object} model.Merchant
-// @Failure 400 {object} HTTPError
-// @Router /merchant [delete]
+// @Param merchant body merchant.Merchant true "Delete Merchant"
+// @Success 201 {object} merchant.Merchant
+// @Failure 400 {object} util.ErrorResponse
+// @Router /merchants/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	mdb, err := merchant.NewDb()
 	if err != nil {

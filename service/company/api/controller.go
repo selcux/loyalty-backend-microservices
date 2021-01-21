@@ -22,9 +22,9 @@ func NewController() *Controller {
 // @Accept json
 // @Produce json
 // @Param company body company.CreateDto true "New Company"
-// @Success 201 {object} company.CreateDto
-// @Failure 400 {object} HTTPError
-// @Router /company [post]
+// @Success 201 {object} company.Company
+// @Failure 400 {object} util.ErrorResponse
+// @Router /companies [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(company.CreateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -60,10 +60,10 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Tags company
 // @Accept json
 // @Produce json
-// @Param company body model.Company true "Read Company"
-// @Success 201 {object} model.Company
-// @Failure 400 {object} HTTPError
-// @Router /company [get]
+// @Param company body company.Company true "Read Company"
+// @Success 201 {object} company.Company
+// @Failure 400 {object} util.ErrorResponse
+// @Router /companies/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	cdb, err := company.NewDb()
 	if err != nil {
@@ -91,10 +91,10 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Tags company
 // @Accept json
 // @Produce json
-// @Param company body model.Company true "Read Companies"
-// @Success 201 {object} model.Company
-// @Failure 400 {object} HTTPError
-// @Router /company [get]
+// @Param company body []company.Company true "Read Companies"
+// @Success 201 {object} []company.Company
+// @Failure 400 {object} util.ErrorResponse
+// @Router /companies [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	cdb, err := company.NewDb()
 	if err != nil {
@@ -121,10 +121,10 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Tags company
 // @Accept json
 // @Produce json
-// @Param company body model.Company true "Update Company"
-// @Success 201 {object} model.Company
-// @Failure 400 {object} HTTPError
-// @Router /company [put]
+// @Param company body company.UpdateDto true "Update Company"
+// @Success 201 {object} company.Company
+// @Failure 400 {object} util.ErrorResponse
+// @Router /companies/{id} [put]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(company.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -162,10 +162,10 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Tags company
 // @Accept json
 // @Produce json
-// @Param company body model.Company true "Delete Company"
-// @Success 201 {object} model.Company
-// @Failure 400 {object} HTTPError
-// @Router /company [delete]
+// @Param company body company.Company true "Delete Company"
+// @Success 201 {object} company.Company
+// @Failure 400 {object} util.ErrorResponse
+// @Router /companies/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	cdb, err := company.NewDb()
 	if err != nil {

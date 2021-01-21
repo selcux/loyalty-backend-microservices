@@ -1,0 +1,169 @@
+basePath: /
+definitions:
+  company.Company:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  company.CreateDto:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  company.UpdateDto:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  util.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+host: localhost:80
+info:
+  contact: {}
+  description: This is the company API of LoyaltyDLT project
+  title: Company API
+  version: "1.0"
+paths:
+  /companies:
+    get:
+      consumes:
+      - application/json
+      description: Get all companies
+      parameters:
+      - description: Read Companies
+        in: body
+        name: company
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/company.Company'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/company.Company'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Read all company data
+      tags:
+      - company
+    post:
+      consumes:
+      - application/json
+      description: Create a new company
+      parameters:
+      - description: New Company
+        in: body
+        name: company
+        required: true
+        schema:
+          $ref: '#/definitions/company.CreateDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/company.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Create a company
+      tags:
+      - company
+  /companies/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a company data
+      parameters:
+      - description: Delete Company
+        in: body
+        name: company
+        required: true
+        schema:
+          $ref: '#/definitions/company.Company'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/company.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Delete a company data
+      tags:
+      - company
+    get:
+      consumes:
+      - application/json
+      description: Get a company data
+      parameters:
+      - description: Read Company
+        in: body
+        name: company
+        required: true
+        schema:
+          $ref: '#/definitions/company.Company'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/company.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Read a company data
+      tags:
+      - company
+    put:
+      consumes:
+      - application/json
+      description: Update a company data
+      parameters:
+      - description: Update Company
+        in: body
+        name: company
+        required: true
+        schema:
+          $ref: '#/definitions/company.UpdateDto'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/company.Company'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/util.ErrorResponse'
+      summary: Update a company data
+      tags:
+      - company
+swagger: "2.0"

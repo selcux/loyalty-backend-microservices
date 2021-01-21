@@ -21,10 +21,10 @@ func NewController() *Controller {
 // @Tags campaign
 // @Accept json
 // @Produce json
-// @Param campaign body model.*Campaign true "New Campaign"
-// @Success 201 {object} model.*Campaign
-// @Failure 400 {object} HTTPError
-// @Router /campaign [post]
+// @Param campaign body model.Campaign true "New Campaign"
+// @Success 201 {object} model.Campaign
+// @Failure 400 {object} util.ErrorResponse
+// @Router /campaigns [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(model.Campaign)
 	if err := ctx.Bind(vm); err != nil {

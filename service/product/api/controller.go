@@ -24,9 +24,9 @@ func NewController() *Controller {
 // @Accept json
 // @Produce json
 // @Param product body product.CreateDto true "New Product"
-// @Success 201 {object} product.CreateDto
-// @Failure 400 {object} HTTPError
-// @Router /product [post]
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products [post]
 func (c *Controller) Create(ctx echo.Context) error {
 	vm := new(product.CreateDto)
 	vm.Company = ctx.Request().Header.Get("Company")
@@ -84,10 +84,10 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Tags product
 // @Accept json
 // @Produce json
-// @Param product body model.Product true "Read Product"
-// @Success 201 {object} model.Product
-// @Failure 400 {object} HTTPError
-// @Router /product [get]
+// @Param product body product.Product true "Read Product"
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
 	pdb, err := product.NewDb()
 	if err != nil {
@@ -115,10 +115,10 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Tags product
 // @Accept json
 // @Produce json
-// @Param product body []model.Product true "Read Products"
-// @Success 201 {object} []model.Product
-// @Failure 400 {object} HTTPError
-// @Router /product [get]
+// @Param product body []product.Product true "Read Products"
+// @Success 201 {object} []product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
 	pdb, err := product.NewDb()
 	if err != nil {
@@ -146,9 +146,9 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Accept json
 // @Produce json
 // @Param product body product.UpdateDto true "Update Product"
-// @Success 201 {object} product.UpdateDto
-// @Failure 400 {object} HTTPError
-// @Router /product [patch]
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
 	vm := new(product.UpdateDto)
 	if err := ctx.Bind(vm); err != nil {
@@ -186,10 +186,10 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Tags product
 // @Accept json
 // @Produce json
-// @Param product body model.Product true "Delete Product"
-// @Success 201 {object} model.Product
-// @Failure 400 {object} HTTPError
-// @Router /product [delete]
+// @Param product body product.Product true "Delete Product"
+// @Success 201 {object} product.Product
+// @Failure 400 {object} util.ErrorResponse
+// @Router /products/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
 	pdb, err := product.NewDb()
 	if err != nil {
