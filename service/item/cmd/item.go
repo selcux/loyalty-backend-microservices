@@ -5,7 +5,6 @@ import (
 	"github.com/labstack/gommon/log"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item/api"
 	_ "gitlab.com/adesso-turkey/loyalty-backend-microservices/service/item/docs"
@@ -17,11 +16,12 @@ import (
 // @host localhost:80
 // @BasePath /
 func main() {
-	conf := di.InitializeConfig()
+	//conf := di.InitializeConfig()
 	itemService := item.NewItemService()
 
 	go func() {
-		err := itemService.Run("", conf.Services["item"].GrpcPort)
+		//err := itemService.Run("", conf.Services["item"].GrpcPort)
+		err := itemService.Run("", 9104)
 		if err != nil {
 			log.Fatalf("Unable to serve with gRPC %v", err)
 		}
@@ -29,11 +29,13 @@ func main() {
 
 	srv := server.NewWebServer()
 	srv.RegisterRoutes(RegisterRoutes)
-	srv.Run("", conf.Services["item"].ApiPort)
+	//srv.Run("", conf.Services["item"].ApiPort)
+	srv.Run("", 9004)
 }
 
 func RegisterRoutes(e *echo.Echo) {
 	itemController := api.NewController()
+
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.POST("/", itemController.Create)
 	e.GET("/:id", itemController.Read)

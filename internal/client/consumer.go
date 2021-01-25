@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/grpc/consumer"
 	"google.golang.org/grpc"
 )
@@ -27,8 +26,9 @@ func NewConsumerService() *ConsumerService {
 }
 
 func (consumerSvc *ConsumerService) Connect() error {
-	conf := di.InitializeConfig()
-	target := fmt.Sprintf("%s:%d", conf.Services["consumer"].Host, conf.Services["consumer"].GrpcPort)
+	//conf := di.InitializeConfig()
+	//target := fmt.Sprintf("%s:%d", conf.Services["consumer"].Host, conf.Services["consumer"].GrpcPort)
+	target := fmt.Sprintf("%s:%d", "consumer", 9102)
 
 	conn, err := grpc.Dial(target, grpc.WithInsecure())
 	if err != nil {

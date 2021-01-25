@@ -37,23 +37,9 @@ var doc = `{
                     "product"
                 ],
                 "summary": "Read all product data",
-                "parameters": [
-                    {
-                        "description": "Read Products",
-                        "name": "product",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/product.Product"
-                            }
-                        }
-                    }
-                ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {

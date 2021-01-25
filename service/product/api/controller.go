@@ -1,6 +1,7 @@
 package api
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -115,16 +116,16 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Tags product
 // @Accept json
 // @Produce json
-// @Param product body []product.Product true "Read Products"
-// @Success 201 {object} []product.Product
+// @Success 200 {object} []product.Product
 // @Failure 400 {object} util.ErrorResponse
 // @Router /products [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
+	log.Println("Got read request")
 	pdb, err := product.NewDb()
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
-
+	log.Println("Opened DB connection...")
 	defer func() {
 		if err := pdb.Close(); err != nil {
 			ctx.Logger().Error(err)
@@ -135,6 +136,7 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 	if err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}
+	log.Println("Read elements of DB")
 
 	return ctx.JSON(http.StatusOK, util.CreateOkResponse(products))
 }

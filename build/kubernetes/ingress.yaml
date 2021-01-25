@@ -1,0 +1,73 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: external-lb
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: apiservice
+                port:
+                  number: 9000
+          - path: /whoami
+            pathType: Prefix
+            backend:
+              service:
+                name: whoami
+                port:
+                  number: 80
+          - path: /company(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: company
+                port:
+                  number: 9001
+          - path: /consumer(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: consumer
+                port:
+                  number: 9002
+          - path: /product(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: product
+                port:
+                  number: 9003
+          - path: /item(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: item
+                port:
+                  number: 9004
+          - path: /merchant(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: merchant
+                port:
+                  number: 9006
+          - path: /campaign(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: campaign
+                port:
+                  number: 9007
+          - path: /fabric(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: fabric
+                port:
+                  number: 9008

@@ -5,10 +5,12 @@ protos:
 	#protoc -I protobuf/ protobuf/*.proto --go_out=plugins=grpc:.
 
 clean-images:
-	@echo "---------------- Cleaning dangling Docker images ----------------"
-	@docker images -f "dangling=true" -q | xargs --no-run-if-empty docker rmi -f
+	@skaffold delete -f ./build/skaffold/skaffold.yaml
+#	@echo "---------------- Cleaning dangling Docker images ----------------"
+#	@docker images -f "dangling=true" -q | xargs --no-run-if-empty docker rmi -f
 
-BUILD_COMMAND = docker-compose -f build/loyalty-dev/docker-compose.yml build
+#BUILD_COMMAND = docker-compose -f build/loyalty-dev/docker-compose.yml build
+BUILD_COMMAND = skaffold build -f ./build/skaffold/skaffold.yaml
 
 build-images:
 ifdef IMAGE
@@ -19,16 +21,17 @@ endif
 
 build: build-images clean-images
 
-destroy: clean-images
-	@docker-compose -f build/loyalty-dev/docker-compose.yml down
+#destroy: clean-images
+#	@docker-compose -f build/loyalty-dev/docker-compose.yml down
 
 run:
-	@docker-compose -f build/loyalty-dev/docker-compose.yml up
+	@skaffold dev -f ./build/skaffold/skaffold.yaml
+#	@docker-compose -f build/loyalty-dev/docker-compose.yml up
 
 test:
 	@go test -v --bench -json ./... --benchmem
 
-clean: clean-images destroy
+#clean: clean-images destroy
 
 # test network path needs to be added to $PATH
 
@@ -49,5 +52,5 @@ test-network-down:
 destroy-chaincodes:
 	docker ps --filter name='loyalty-cc-*' --filter status='exited' -aq | xargs docker rm
 
-destroy-with-chaincodes: destroy destroy-chaincodes
+#destroy-with-chaincodes: destroy destroy-chaincodes
 
