@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/labstack/gommon/log"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -30,11 +29,12 @@ type Db struct {
 }
 
 func NewDb() (*Db, error) {
-	conf := di.InitializeConfig()
-	mongoProps := conf.MongoProps()
+	//conf := di.InitializeConfig()
+	//mongoProps := conf.MongoProps()
 
 	ctx := context.TODO()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoProps.ConnectionString))
+	//client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongoProps.ConnectionString))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://mongo:37017"))
 
 	if err != nil {
 		return nil, err
@@ -46,9 +46,10 @@ func NewDb() (*Db, error) {
 	}
 
 	return &Db{
-		ctx:        ctx,
-		client:     client,
-		collection: client.Database(mongoProps.DbName).Collection(mongoProps.Collections["product"]),
+		ctx:    ctx,
+		client: client,
+		//collection: client.Database(mongoProps.DbName).Collection(mongoProps.Collections["product"]),
+		collection: client.Database("loyalty-dlt").Collection("products"),
 	}, nil
 }
 

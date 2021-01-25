@@ -4,7 +4,6 @@ import (
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant/api"
 	_ "gitlab.com/adesso-turkey/loyalty-backend-microservices/service/merchant/docs"
 )
@@ -15,22 +14,20 @@ import (
 // @host localhost:80
 // @BasePath /
 func main() {
-	conf := di.InitializeConfig()
+	//conf := di.InitializeConfig()
 	srv := server.NewWebServer()
 	srv.RegisterRoutes(RegisterRoutes)
-	srv.Run("", conf.Services["merchant"].ApiPort)
+	//srv.Run("", conf.Services["merchant"].ApiPort)
+	srv.Run("", 9006)
 }
 
 func RegisterRoutes(e *echo.Echo) {
 	merchantController := api.NewController()
-	v1 := e.Group("/")
-	{
-		v1.POST("/", merchantController.Create)
-		v1.GET("/:id", merchantController.Read)
-		v1.GET("/", merchantController.ReadAll)
-		v1.PUT("/:id", merchantController.Update)
-		v1.DELETE("/:id", merchantController.Delete)
-	}
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.POST("/", merchantController.Create)
+	e.GET("/:id", merchantController.Read)
+	e.GET("/", merchantController.ReadAll)
+	e.PUT("/:id", merchantController.Update)
+	e.DELETE("/:id", merchantController.Delete)
 }

@@ -1,0 +1,43 @@
+apiVersion: skaffold/v2beta10
+kind: Config
+metadata:
+  name: loyalty-backend-microservices
+build:
+  artifacts:
+  - image: apiservice
+    docker:
+      dockerfile: service/api-service/Dockerfile
+  - image: company
+    docker:
+      dockerfile: service/company/Dockerfile
+  - image: consumer
+    docker:
+      dockerfile: service/consumer/Dockerfile
+  - image: item
+    docker:
+      dockerfile: service/item/Dockerfile
+  - image: merchant
+    docker:
+      dockerfile: service/merchant/Dockerfile
+  - image: product
+    docker:
+      dockerfile: service/product/Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - build/kubernetes/apiservice-deployment.yaml
+    - build/kubernetes/apiservice-service.yaml
+    - build/kubernetes/company-deployment.yaml
+    - build/kubernetes/company-service.yaml
+    - build/kubernetes/consumer-deployment.yaml
+    - build/kubernetes/consumer-service.yaml
+    - build/kubernetes/item-deployment.yaml
+    - build/kubernetes/item-service.yaml
+    - build/kubernetes/merchant-deployment.yaml
+    - build/kubernetes/merchant-service.yaml
+    - build/kubernetes/mongo-deployment.yaml
+    - build/kubernetes/mongo-service.yaml
+    - build/kubernetes/product-deployment.yaml
+    - build/kubernetes/product-service.yaml
+    - build/kubernetes/whoami-deployment.yaml
+    - build/kubernetes/whoami-service.yaml

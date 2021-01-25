@@ -2,19 +2,18 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-
 	"github.com/labstack/echo/v4"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/util"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
+	"net/http"
 )
 
 func main() {
-	conf := di.InitializeConfig()
+	//conf := di.InitializeConfig()
 	srv := server.NewWebServer()
 	srv.RegisterRoutes(RegisterRoutes)
-	srv.Run("", conf.Services["api_service"].ApiPort)
+	//srv.Run("", conf.Services["api_service"].ApiPort)
+	srv.Run("", 9000)
 }
 func RegisterRoutes(e *echo.Echo) {
 	e.GET("/", func(ctx echo.Context) error {

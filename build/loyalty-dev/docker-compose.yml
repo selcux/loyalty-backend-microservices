@@ -1,20 +1,20 @@
-version: '3.8'
+version: '3'
 
 services:
-  reverse-proxy:
-    image: nginx:alpine
-    container_name: reverse-proxy
-    ports:
-      - 80:80
-      - 9080:27017
-      - 9090:15672
-    restart: always
-    environment:
-      - NGINX_HOST=localhost
-      - NGINX_PORT=80
-    volumes:
-      - ../package/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-    command: [ nginx-debug, '-g', 'daemon off;' ]
+#  reverse-proxy:
+#    image: nginx:alpine
+#    container_name: reverse-proxy
+#    ports:
+#      - 80:80
+#      - 9080:27017
+#      - 9090:15672
+#    restart: always
+#    environment:
+#      - NGINX_HOST=localhost
+#      - NGINX_PORT=80
+#    volumes:
+#      - ../package/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+#    command: [ nginx-debug, '-g', 'daemon off;' ]
 
   mongo:
     image: mongo:latest
@@ -22,12 +22,14 @@ services:
     restart: unless-stopped
     environment:
       - MONGO_INITDB_DATABASE=loyalty-dlt
-    volumes:
-      - ~/loyalty-volumes/mongo-volume:/data/db
+#    volumes:
+#      - ~/loyalty-volumes/mongo-volume:/data/db
     ports:
       - 37017:27017
-    hostname: mongo.local
-    domainname: db.local
+#    hostname: mongo.local
+#    domainname: db.local
+    labels:
+      kompose.service.type: LoadBalancer
 
   whoami:
     # A container that exposes an API to show its IP address
@@ -35,6 +37,10 @@ services:
     container_name: whoami
     depends_on:
       - reverse-proxy
+    ports:
+      - 80:80
+    labels:
+      kompose.service.type: LoadBalancer
 
   apiservice:
     build:
@@ -43,8 +49,13 @@ services:
     container_name: apiservice
     depends_on:
       - reverse-proxy
-    volumes:
-      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+#    volumes:
+#      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+    ports:
+      - 9000:9000
+      - 9100:9100
+    labels:
+      kompose.service.type: LoadBalancer
 
   company:
     build:
@@ -54,8 +65,13 @@ services:
     depends_on:
       - reverse-proxy
       - mongo
-    volumes:
-      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+#    volumes:
+#      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+    ports:
+      - 9001:9001
+      - 9101:9101
+    labels:
+      kompose.service.type: LoadBalancer
 
   consumer:
     build:
@@ -65,8 +81,13 @@ services:
     depends_on:
       - reverse-proxy
       - mongo
-    volumes:
-      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+#    volumes:
+#      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+    ports:
+      - 9002:9002
+      - 9102:9102
+    labels:
+      kompose.service.type: LoadBalancer
 
   item:
     build:
@@ -76,8 +97,13 @@ services:
     depends_on:
       - reverse-proxy
       - mongo
-    volumes:
-      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+#    volumes:
+#      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+    ports:
+      - 9004:9004
+      - 9104:9104
+    labels:
+      kompose.service.type: LoadBalancer
 
   merchant:
     build:
@@ -87,8 +113,13 @@ services:
     depends_on:
       - reverse-proxy
       - mongo
-    volumes:
-      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+#    volumes:
+#      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+    ports:
+      - 9006:9006
+      - 9106:9106
+    labels:
+      kompose.service.type: LoadBalancer
 
   product:
     build:
@@ -98,5 +129,10 @@ services:
     depends_on:
       - reverse-proxy
       - mongo
-    volumes:
-      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+#    volumes:
+#      - ../package/config/loyalty.yaml:/etc/loyalty.yaml
+    ports:
+      - 9003:9003
+      - 9103:9103
+    labels:
+      kompose.service.type: LoadBalancer
