@@ -24,7 +24,7 @@ spec:
         io.kompose.service: consumer
     spec:
       containers:
-        - image: consumer
+        - image: loyalty1.azurecr.io/consumer
           name: consumer
           ports:
             - containerPort: 9002

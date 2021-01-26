@@ -24,7 +24,7 @@ spec:
         io.kompose.service: apiservice
     spec:
       containers:
-        - image: apiservice
+        - image: loyalty1.azurecr.io/apiservice
           name: apiservice
           ports:
             - containerPort: 9000

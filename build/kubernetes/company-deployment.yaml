@@ -24,7 +24,7 @@ spec:
         io.kompose.service: company
     spec:
       containers:
-        - image: company
+        - image: loyalty1.azurecr.io/company
           name: company
           ports:
             - containerPort: 9001

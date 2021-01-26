@@ -18,6 +18,6 @@ spec:
       targetPort: 9106
   selector:
     io.kompose.service: merchant
-  type: LoadBalancer
+  type: NodePort
 status:
   loadBalancer: {}

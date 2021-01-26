@@ -18,6 +18,6 @@ spec:
       targetPort: 9104
   selector:
     io.kompose.service: item
-  type: LoadBalancer
+  type: NodePort
 status:
   loadBalancer: {}

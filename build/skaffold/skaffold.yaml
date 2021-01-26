@@ -4,25 +4,27 @@ metadata:
   name: loyalty-backend-microservices
 build:
   artifacts:
-    - image: apiservice
+    - image: loyalty1.azurecr.io/apiservice
       docker:
         dockerfile: service/api-service/Dockerfile
-    - image: company
+    - image: loyalty1.azurecr.io/company
       docker:
         dockerfile: service/company/Dockerfile
-    - image: consumer
+    - image: loyalty1.azurecr.io/consumer
       docker:
         dockerfile: service/consumer/Dockerfile
-    - image: item
+    - image: loyalty1.azurecr.io/item
       docker:
         dockerfile: service/item/Dockerfile
-    - image: merchant
+    - image: loyalty1.azurecr.io/merchant
       docker:
         dockerfile: service/merchant/Dockerfile
-    - image: product
+    - image: loyalty1.azurecr.io/product
       docker:
         dockerfile: service/product/Dockerfile
 deploy:
+  kustomize:
+
   kubectl:
     manifests:
       - build/kubernetes/ingress.yaml
@@ -42,4 +44,3 @@ deploy:
       - build/kubernetes/mongo-service.yaml
       - build/kubernetes/product-deployment.yaml
       - build/kubernetes/product-service.yaml
-

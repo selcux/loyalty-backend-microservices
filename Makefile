@@ -28,6 +28,9 @@ run:
 	@skaffold dev -f ./build/skaffold/skaffold.yaml
 #	@docker-compose -f build/loyalty-dev/docker-compose.yml up
 
+deploy:
+	@skaffold run -f ./build/skaffold/skaffold.yaml
+
 test:
 	@go test -v --bench -json ./... --benchmem
 

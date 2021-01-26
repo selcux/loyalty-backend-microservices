@@ -24,7 +24,7 @@ spec:
         io.kompose.service: item
     spec:
       containers:
-        - image: item
+        - image: loyalty1.azurecr.io/item
           name: item
           ports:
             - containerPort: 9004

@@ -3,11 +3,25 @@ kind: Ingress
 metadata:
   name: external-lb
   annotations:
+    #    kubernetes.io/ingress.class: addon-http-application-routing
+    #    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    kubernetes.io/ingress.class: nginx
+    #    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    #    nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+#    nginx.ingress.kubernetes.io/app-root: /
+#  namespace: default
 spec:
   rules:
     - http:
         paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: whoami
+                port:
+                  number: 80
           - path: /api(/|$)(.*)
             pathType: Prefix
             backend:
@@ -15,13 +29,6 @@ spec:
                 name: apiservice
                 port:
                   number: 9000
-          - path: /whoami
-            pathType: Prefix
-            backend:
-              service:
-                name: whoami
-                port:
-                  number: 80
           - path: /company(/|$)(.*)
             pathType: Prefix
             backend:
@@ -57,17 +64,17 @@ spec:
                 name: merchant
                 port:
                   number: 9006
-          - path: /campaign(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: campaign
-                port:
-                  number: 9007
-          - path: /fabric(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: fabric
-                port:
-                  number: 9008
+#          - path: /campaign(/|$)(.*)
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: campaign
+#                port:
+#                  number: 9007
+#          - path: /fabric(/|$)(.*)
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: fabric
+#                port:
+#                  number: 9008
