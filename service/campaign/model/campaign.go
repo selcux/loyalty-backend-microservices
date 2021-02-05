@@ -15,14 +15,7 @@ const (
 	ChecklistLocation Type = "location"
 )
 
-type Container struct {
-	ComponentType Type `json:"component_type" validate:"required"`
-	Order         int  `json:"order" validate:"required"`
-	//Component     json.RawMessage `json:"component" validate:"required"`
-	Component ComponentComponent `json:"component" validate:"required"`
-}
-
-type Campaign struct {
+type CampaignDto struct {
 	Name         string      `json:"name" validate:"required"`
 	PublicKey    string      `json:"public_key" validate:"required"`
 	PrivateKey   string      `json:"private_key" validate:"required"`
@@ -34,7 +27,14 @@ type Campaign struct {
 	Components   []Container `json:"components" validate:"required"`
 }
 
-type ComponentComponent struct {
+type Container struct {
+	ComponentType Type `json:"component_type" validate:"required"`
+	Order         int  `json:"order" validate:"required"`
+	//Component     json.RawMessage `json:"component" validate:"required"`
+	Component ComponentElement `json:"component" validate:"required"`
+}
+
+type ComponentElement struct {
 	Items       *map[string]int `json:"items,omitempty"`
 	Expiration  *bool           `json:"expiration,omitempty"`
 	Benefits    *map[string]int `json:"benefits,omitempty"`

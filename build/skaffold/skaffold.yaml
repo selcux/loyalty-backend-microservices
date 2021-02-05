@@ -22,6 +22,9 @@ build:
     - image: product
       docker:
         dockerfile: service/product/Dockerfile
+    - image: campaign
+      docker:
+        dockerfile: service/campaign/Dockerfile
 deploy:
   kubectl:
     manifests:
@@ -42,4 +45,6 @@ deploy:
       - build/kubernetes/mongo-service.yaml
       - build/kubernetes/product-deployment.yaml
       - build/kubernetes/product-service.yaml
+      - build/kubernetes/campaign-deployment.yaml
+      - build/kubernetes/campaign-service.yaml
 

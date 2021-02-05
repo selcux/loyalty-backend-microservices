@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-var campaignStruct *model.Campaign
+var campaignStruct *model.CampaignDto
 var campaignJson string
 
 func TestController(t *testing.T) {
@@ -21,7 +21,7 @@ func TestController(t *testing.T) {
 }
 
 var _ = BeforeSuite(func() {
-	campaignStruct = &model.Campaign{
+	campaignStruct = &model.CampaignDto{
 		Name:       "Campaign_1",
 		PublicKey:  "D87598G7AF8G",
 		PrivateKey: "D8S7GA98S7AG7",
@@ -29,7 +29,7 @@ var _ = BeforeSuite(func() {
 		Components: []model.Container{{
 			ComponentType: "point",
 			Order:         1,
-			Component: model.ComponentComponent{
+			Component: model.ComponentElement{
 				Items: &map[string]int{
 					"milk biscuit": 100,
 					"chips":        200,

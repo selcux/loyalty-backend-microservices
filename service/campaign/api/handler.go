@@ -8,11 +8,11 @@ import (
 )
 
 type handler struct {
-	campaign *model.Campaign
+	campaign *model.CampaignDto
 }
 
 func (h *handler) createCampaign(c echo.Context) error {
-	camp := new(model.Campaign)
+	camp := new(model.CampaignDto)
 	if err := c.Bind(camp); err != nil {
 		return err
 	}

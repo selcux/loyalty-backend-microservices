@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../loyalty-dev/docker-compose.yml
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: campaign
+  name: campaign
+spec:
+  ports:
+    - name: "9007"
+      port: 9007
+      targetPort: 9007
+    - name: "9107"
+      port: 9107
+      targetPort: 9107
+  selector:
+    io.kompose.service: campaign
+  type: LoadBalancer
+status:
+  loadBalancer: { }

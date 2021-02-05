@@ -26,7 +26,7 @@ func NewController() *Controller {
 // @Failure 400 {object} util.ErrorResponse
 // @Router /campaigns [post]
 func (c *Controller) Create(ctx echo.Context) error {
-	vm := new(model.Campaign)
+	vm := new(model.CampaignDto)
 	if err := ctx.Bind(vm); err != nil {
 		return ctx.JSON(http.StatusBadRequest, util.CreateErrorResponse(err))
 	}

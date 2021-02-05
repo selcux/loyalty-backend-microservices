@@ -4,7 +4,6 @@ import (
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/internal/server"
-	"gitlab.com/adesso-turkey/loyalty-backend-microservices/pkg/di"
 	"gitlab.com/adesso-turkey/loyalty-backend-microservices/service/campaign/api"
 	_ "gitlab.com/adesso-turkey/loyalty-backend-microservices/service/campaign/docs"
 )
@@ -15,18 +14,16 @@ import (
 // @host localhost:80
 // @BasePath /
 func main() {
-	conf := di.InitializeConfig()
+	//conf := di.InitializeConfig()
 	srv := server.NewWebServer()
 	srv.RegisterRoutes(RegisterRoutes)
-	srv.Run("", conf.Services["campaign"].ApiPort)
+	//srv.Run("", conf.Services["campaign"].ApiPort)
+	srv.Run("", 9007)
 }
 
 func RegisterRoutes(e *echo.Echo) {
 	campaignController := api.NewController()
-	v1 := e.Group("/")
-	{
-		v1.POST("/", campaignController.Create)
-	}
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	e.POST("/", campaignController.Create)
 }
