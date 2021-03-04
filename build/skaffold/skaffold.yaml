@@ -42,4 +42,4 @@ deploy:
       - build/kubernetes/mongo-service.yaml
       - build/kubernetes/product-deployment.yaml
       - build/kubernetes/product-service.yaml
-
+      - build/kubernetes/fabric/**

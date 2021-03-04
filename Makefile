@@ -25,6 +25,7 @@ build: build-images clean-images
 #	@docker-compose -f build/loyalty-dev/docker-compose.yml down
 
 run:
+	@(./scripts/create-k8s-ns.sh hyperledger)
 	@skaffold dev -f ./build/skaffold/skaffold.yaml
 #	@docker-compose -f build/loyalty-dev/docker-compose.yml up
 
