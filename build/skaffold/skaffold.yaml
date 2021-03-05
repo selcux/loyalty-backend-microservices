@@ -23,8 +23,6 @@ build:
       docker:
         dockerfile: service/product/Dockerfile
 deploy:
-  kustomize:
-
   kubectl:
     manifests:
       - build/kubernetes/ingress.yaml
@@ -44,3 +42,4 @@ deploy:
       - build/kubernetes/mongo-service.yaml
       - build/kubernetes/product-deployment.yaml
       - build/kubernetes/product-service.yaml
+      - build/kubernetes/fabric/**
