@@ -24,7 +24,7 @@ spec:
         io.kompose.service: merchant
     spec:
       containers:
-        - image: loyalty1.azurecr.io/merchant
+        - image: loyaltyacr.azurecr.io/merchant
           name: merchant
           ports:
             - containerPort: 9006

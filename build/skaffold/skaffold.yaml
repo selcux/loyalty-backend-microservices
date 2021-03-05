@@ -4,22 +4,22 @@ metadata:
   name: loyalty-backend-microservices
 build:
   artifacts:
-    - image: loyalty1.azurecr.io/apiservice
+    - image: loyaltyacr.azurecr.io/apiservice
       docker:
         dockerfile: service/api-service/Dockerfile
-    - image: loyalty1.azurecr.io/company
+    - image: loyaltyacr.azurecr.io/company
       docker:
         dockerfile: service/company/Dockerfile
-    - image: loyalty1.azurecr.io/consumer
+    - image: loyaltyacr.azurecr.io/consumer
       docker:
         dockerfile: service/consumer/Dockerfile
-    - image: loyalty1.azurecr.io/item
+    - image: loyaltyacr.azurecr.io/item
       docker:
         dockerfile: service/item/Dockerfile
-    - image: loyalty1.azurecr.io/merchant
+    - image: loyaltyacr.azurecr.io/merchant
       docker:
         dockerfile: service/merchant/Dockerfile
-    - image: loyalty1.azurecr.io/product
+    - image: loyaltyacr.azurecr.io/product
       docker:
         dockerfile: service/product/Dockerfile
 deploy:
