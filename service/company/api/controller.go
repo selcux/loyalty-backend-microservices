@@ -58,10 +58,9 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Summary Read a company data
 // @Description Get a company data
 // @Tags company
-// @Accept json
 // @Produce json
-// @Param company body company.Company true "Read Company"
-// @Success 201 {object} company.Company
+// @Param id path string true "Company ID"
+// @Success 200 {object} company.Company
 // @Failure 400 {object} util.ErrorResponse
 // @Router /companies/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
@@ -89,10 +88,8 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Summary Read all company data
 // @Description Get all companies
 // @Tags company
-// @Accept json
 // @Produce json
-// @Param company body []company.Company true "Read Companies"
-// @Success 201 {object} []company.Company
+// @Success 200 {object} []company.Company
 // @Failure 400 {object} util.ErrorResponse
 // @Router /companies [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
@@ -121,8 +118,9 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Tags company
 // @Accept json
 // @Produce json
+// @Param id path string true "Company ID"
 // @Param company body company.UpdateDto true "Update Company"
-// @Success 201 {object} company.Company
+// @Success 200 {object} company.Company
 // @Failure 400 {object} util.ErrorResponse
 // @Router /companies/{id} [put]
 func (c *Controller) Update(ctx echo.Context) error {
@@ -160,10 +158,9 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Summary Delete a company data
 // @Description Delete a company data
 // @Tags company
-// @Accept json
 // @Produce json
-// @Param company body company.Company true "Delete Company"
-// @Success 201 {object} company.Company
+// @Param id path string true "Company ID"
+// @Success 204
 // @Failure 400 {object} util.ErrorResponse
 // @Router /companies/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {

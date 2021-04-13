@@ -60,10 +60,9 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Summary Read a merchant data
 // @Description Get a merchant data
 // @Tags merchant
-// @Accept json
 // @Produce json
-// @Param merchant body merchant.Merchant true "Read Merchant"
-// @Success 201 {object} merchant.Merchant
+// @Param id path string true "Merchant ID"
+// @Success 200 {object} merchant.Merchant
 // @Failure 400 {object} util.ErrorResponse
 // @Router /merchants/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
@@ -91,10 +90,8 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Summary Read all merchant data
 // @Description Get all merchants
 // @Tags merchant
-// @Accept json
 // @Produce json
-// @Param merchant body []merchant.Merchant true "Read Merchants"
-// @Success 201 {object} []merchant.Merchant
+// @Success 200 {object} []merchant.Merchant
 // @Failure 400 {object} util.ErrorResponse
 // @Router /merchants [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
@@ -124,7 +121,8 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Accept json
 // @Produce json
 // @Param merchant body merchant.UpdateDto true "Update Merchant"
-// @Success 201 {object} merchant.Merchant
+// @Param id path string true "Merchant ID"
+// @Success 200 {object} merchant.Merchant
 // @Failure 400 {object} util.ErrorResponse
 // @Router /merchants/{id} [put]
 func (c *Controller) Update(ctx echo.Context) error {
@@ -161,10 +159,9 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Summary Delete a merchant data
 // @Description Delete a merchant data
 // @Tags merchant
-// @Accept json
 // @Produce json
-// @Param merchant body merchant.Merchant true "Delete Merchant"
-// @Success 201 {object} merchant.Merchant
+// @Param id path string true "Merchant ID"
+// @Success 204
 // @Failure 400 {object} util.ErrorResponse
 // @Router /merchants/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {

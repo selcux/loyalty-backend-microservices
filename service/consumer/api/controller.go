@@ -60,10 +60,9 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Summary Read a consumer data
 // @Description Get a consumer data
 // @Tags consumer
-// @Accept json
 // @Produce json
-// @Param consumer body consumer.Entity true "Read consumer"
-// @Success 201 {object} consumer.Entity
+// @Param id path string true "Consumer ID"
+// @Success 200 {object} consumer.Entity
 // @Failure 400 {object} util.ErrorResponse
 // @Router /consumers/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
@@ -91,10 +90,8 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Summary Read all consumer data
 // @Description Get all consumer data
 // @Tags consumer
-// @Accept json
 // @Produce json
-// @Param consumer body []consumer.Entity true "Read all consumer"
-// @Success 201 {object} []consumer.Entity
+// @Success 200 {object} []consumer.Entity
 // @Failure 400 {object} util.ErrorResponse
 // @Router /consumers [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
@@ -124,7 +121,8 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Accept json
 // @Produce json
 // @Param consumer body consumer.Entity true "Update a consumer"
-// @Success 201 {object} consumer.Entity
+// @Param id path string true "Consumer ID"
+// @Success 200 {object} consumer.Entity
 // @Failure 400 {object} util.ErrorResponse
 // @Router /consumers/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
@@ -162,10 +160,9 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Summary Delete a consumer data
 // @Description Delete a consumer data
 // @Tags consumer
-// @Accept json
 // @Produce json
-// @Param consumer body consumer.Entity true "Delete a consumer"
-// @Success 201 {object} consumer.Entity
+// @Param id path string true "Consumer ID"
+// @Success 204
 // @Failure 400 {object} util.ErrorResponse
 // @Router /consumers/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {
@@ -196,7 +193,7 @@ func (c *Controller) Delete(ctx echo.Context) error {
 // @Accept json
 // @Produce json
 // @Param consumer body consumer.ItemDto true "Update a consumer wallet"
-// @Success 201 {object} consumer.ItemDto
+// @Success 204
 // @Failure 400 {object} util.ErrorResponse
 // @Router /consumers/{id}/add [put]
 func (c *Controller) Add(ctx echo.Context) error {
@@ -252,7 +249,7 @@ func (c *Controller) Add(ctx echo.Context) error {
 // @Accept json
 // @Produce json
 // @Param consumer body consumer.ItemDto true "Remove from the consumer wallet"
-// @Success 201 {object} consumer.ItemDto
+// @Success 204
 // @Failure 400 {object} util.ErrorResponse
 // @Router /consumers/{id}/delete [delete]
 func (c *Controller) Remove(ctx echo.Context) error {

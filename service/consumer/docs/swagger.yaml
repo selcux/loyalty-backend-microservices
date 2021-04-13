@@ -44,7 +44,6 @@ definitions:
       message:
         type: string
     type: object
-host: localhost:80
 info:
   contact: {}
   description: This is the consumer API of LoyaltyDLT project
@@ -53,23 +52,12 @@ info:
 paths:
   /consumers:
     get:
-      consumes:
-      - application/json
       description: Get all consumer data
-      parameters:
-      - description: Read all consumer
-        in: body
-        name: consumer
-        required: true
-        schema:
-          items:
-            $ref: '#/definitions/consumer.Entity'
-          type: array
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             items:
               $ref: '#/definitions/consumer.Entity'
@@ -108,23 +96,18 @@ paths:
       - consumer
   /consumers/{id}:
     delete:
-      consumes:
-      - application/json
       description: Delete a consumer data
       parameters:
-      - description: Delete a consumer
-        in: body
-        name: consumer
+      - description: Consumer ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/consumer.Entity'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/consumer.Entity'
+        "204":
+          description: ""
         "400":
           description: Bad Request
           schema:
@@ -133,21 +116,18 @@ paths:
       tags:
       - consumer
     get:
-      consumes:
-      - application/json
       description: Get a consumer data
       parameters:
-      - description: Read consumer
-        in: body
-        name: consumer
+      - description: Consumer ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/consumer.Entity'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/consumer.Entity'
         "400":
@@ -168,11 +148,16 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/consumer.Entity'
+      - description: Consumer ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/consumer.Entity'
         "400":
@@ -197,10 +182,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/consumer.ItemDto'
+        "204":
+          description: ""
         "400":
           description: Bad Request
           schema:
@@ -223,10 +206,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/consumer.ItemDto'
+        "204":
+          description: ""
         "400":
           description: Bad Request
           schema:

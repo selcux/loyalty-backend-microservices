@@ -11,7 +11,6 @@ import (
 // @title Merchant API
 // @description This is the merchant API of LoyaltyDLT project
 // @version 1.0
-// @host localhost:80
 // @BasePath /
 func main() {
 	//conf := di.InitializeConfig()

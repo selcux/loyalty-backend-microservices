@@ -6,15 +6,11 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:80",
     "basePath": "/",
     "paths": {
         "/companies": {
             "get": {
                 "description": "Get all companies",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -22,23 +18,9 @@
                     "company"
                 ],
                 "summary": "Read all company data",
-                "parameters": [
-                    {
-                        "description": "Read Companies",
-                        "name": "company",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/company.Company"
-                            }
-                        }
-                    }
-                ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -96,9 +78,6 @@
         "/companies/{id}": {
             "get": {
                 "description": "Get a company data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -108,18 +87,16 @@
                 "summary": "Read a company data",
                 "parameters": [
                     {
-                        "description": "Read Company",
-                        "name": "company",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/company.Company"
-                        }
+                        "type": "string",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/company.Company"
                         }
@@ -146,6 +123,13 @@
                 "summary": "Update a company data",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Update Company",
                         "name": "company",
                         "in": "body",
@@ -156,8 +140,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/company.Company"
                         }
@@ -172,9 +156,6 @@
             },
             "delete": {
                 "description": "Delete a company data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -184,21 +165,16 @@
                 "summary": "Delete a company data",
                 "parameters": [
                     {
-                        "description": "Delete Company",
-                        "name": "company",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/company.Company"
-                        }
+                        "type": "string",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/company.Company"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",

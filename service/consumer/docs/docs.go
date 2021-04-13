@@ -27,9 +27,6 @@ var doc = `{
         "/consumers": {
             "get": {
                 "description": "Get all consumer data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -37,23 +34,9 @@ var doc = `{
                     "consumer"
                 ],
                 "summary": "Read all consumer data",
-                "parameters": [
-                    {
-                        "description": "Read all consumer",
-                        "name": "consumer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/consumer.Entity"
-                            }
-                        }
-                    }
-                ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -111,9 +94,6 @@ var doc = `{
         "/consumers/{id}": {
             "get": {
                 "description": "Get a consumer data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -123,18 +103,16 @@ var doc = `{
                 "summary": "Read a consumer data",
                 "parameters": [
                     {
-                        "description": "Read consumer",
-                        "name": "consumer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/consumer.Entity"
-                        }
+                        "type": "string",
+                        "description": "Consumer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/consumer.Entity"
                         }
@@ -149,9 +127,6 @@ var doc = `{
             },
             "delete": {
                 "description": "Delete a consumer data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -161,21 +136,16 @@ var doc = `{
                 "summary": "Delete a consumer data",
                 "parameters": [
                     {
-                        "description": "Delete a consumer",
-                        "name": "consumer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/consumer.Entity"
-                        }
+                        "type": "string",
+                        "description": "Consumer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/consumer.Entity"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -206,11 +176,18 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/consumer.Entity"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Consumer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/consumer.Entity"
                         }
@@ -249,11 +226,8 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/consumer.ItemDto"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -289,11 +263,8 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/consumer.ItemDto"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -387,7 +358,7 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "1.0",
-	Host:        "localhost:80",
+	Host:        "",
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "Consumer API",

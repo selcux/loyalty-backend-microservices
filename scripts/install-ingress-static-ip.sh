@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 DOMAIN="loyalty"
 DNS_LABEL="$DOMAIN.northeurope.cloudapp.azure.com"
@@ -9,14 +9,8 @@ STATIC_IP="52.169.43.16"
 #  --set controller.service.loadBalancerIP="$STATIC_IP" \
 #  --set controller.service.annotations."service\.beta\.kubernetes\.io/azure-dns-label-name"="$DOMAIN.northeurope.cloudapp.azure.com"
 
-NS=$(kubectl get ns | grep "ingress-basic")
-
-if [ -z "$NS" ]; then
-  kubectl create ns ingress-basic
-else
-  echo "Namespace 'ingress-basic' already exists, skipping..."
-fi
-
+SCRIPTS_DIR=$(dirname "$0")
+sh "$SCRIPTS_DIR"/create-k8s-ns.sh ingress-basic
 
 helm install ingress-nginx ingress-nginx/ingress-nginx \
     --namespace ingress-basic \

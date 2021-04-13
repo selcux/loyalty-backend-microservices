@@ -28,7 +28,6 @@ definitions:
       message:
         type: string
     type: object
-host: localhost:80
 info:
   contact: {}
   description: This is the company API of LoyaltyDLT project
@@ -37,23 +36,12 @@ info:
 paths:
   /companies:
     get:
-      consumes:
-      - application/json
       description: Get all companies
-      parameters:
-      - description: Read Companies
-        in: body
-        name: company
-        required: true
-        schema:
-          items:
-            $ref: '#/definitions/company.Company'
-          type: array
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             items:
               $ref: '#/definitions/company.Company'
@@ -92,23 +80,18 @@ paths:
       - company
   /companies/{id}:
     delete:
-      consumes:
-      - application/json
       description: Delete a company data
       parameters:
-      - description: Delete Company
-        in: body
-        name: company
+      - description: Company ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/company.Company'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/company.Company'
+        "204":
+          description: ""
         "400":
           description: Bad Request
           schema:
@@ -117,21 +100,18 @@ paths:
       tags:
       - company
     get:
-      consumes:
-      - application/json
       description: Get a company data
       parameters:
-      - description: Read Company
-        in: body
-        name: company
+      - description: Company ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/company.Company'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/company.Company'
         "400":
@@ -146,6 +126,11 @@ paths:
       - application/json
       description: Update a company data
       parameters:
+      - description: Company ID
+        in: path
+        name: id
+        required: true
+        type: string
       - description: Update Company
         in: body
         name: company
@@ -155,8 +140,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/company.Company'
         "400":

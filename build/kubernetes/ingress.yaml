@@ -29,35 +29,35 @@ spec:
                 name: apiservice
                 port:
                   number: 9000
-          - path: /company(/|$)(.*)
+          - path: /companies(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: company
                 port:
                   number: 9001
-          - path: /consumer(/|$)(.*)
+          - path: /consumers(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: consumer
                 port:
                   number: 9002
-          - path: /product(/|$)(.*)
+          - path: /products(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: product
                 port:
                   number: 9003
-          - path: /item(/|$)(.*)
+          - path: /items(/|$)(.*)
             pathType: Prefix
             backend:
               service:
                 name: item
                 port:
                   number: 9004
-          - path: /merchant(/|$)(.*)
+          - path: /merchants(/|$)(.*)
             pathType: Prefix
             backend:
               service:

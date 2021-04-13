@@ -38,8 +38,11 @@ deploy:
       - build/kubernetes/item-service.yaml
       - build/kubernetes/merchant-deployment.yaml
       - build/kubernetes/merchant-service.yaml
-      - build/kubernetes/mongo-deployment.yaml
-      - build/kubernetes/mongo-service.yaml
       - build/kubernetes/product-deployment.yaml
       - build/kubernetes/product-service.yaml
-      - build/kubernetes/fabric/**
+#      - build/kubernetes/fabric/**
+      - build/kubernetes/mongodb/**
+#      - build/kubernetes/fabric/ca/**
+#      - build/kubernetes/fabric/couchdb/**
+#      - build/kubernetes/fabric/orderer-service/**
+#      - build/kubernetes/fabric/org1/**

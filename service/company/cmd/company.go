@@ -10,8 +10,7 @@ import (
 
 // @title Company API
 // @description This is the company API of LoyaltyDLT project
-// @version 1.0
-// @host localhost:80
+// @version 0.1
 // @BasePath /
 func main() {
 	//conf := di.InitializeConfig()

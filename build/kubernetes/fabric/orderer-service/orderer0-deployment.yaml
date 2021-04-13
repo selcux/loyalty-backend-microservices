@@ -66,7 +66,7 @@ spec:
               value: /var/hyperledger/orderer/tls/server.key
             - name: ORDERER_GENERAL_CLUSTER_ROOTCAS
               value: "[/var/hyperledger/orderer/tls/ca.crt]"
-          image: hyperledger/fabric-orderer:amd64-2.2.0
+          image: hyperledger/fabric-orderer:2.3
           name: orderer
           ports:
             - containerPort: 7050
@@ -74,20 +74,22 @@ spec:
           volumeMounts:
             - mountPath: /var/hyperledger/production
               name: orderer0-persistentdata
-#            - mountPath: /var/hyperledger/orderer/genesis.block
+              subPath: orderer0
             - mountPath: /channel-artifacts
               name: orderer0-claim0
             - mountPath: /var/hyperledger/orderer/msp
               name: orderer0-claim1
+              subPath: msp
             - mountPath: /var/hyperledger/orderer/tls
-              name: orderer0-claim2
+              name: orderer0-claim1
+              subPath: tls
           workingDir: /opt/gopath/src/github.com/hyperledger/fabric
       restartPolicy: Always
       volumes:
         - name: orderer0-persistentdata
           azureFile:
             secretName: azure-loyaltydltsa-secret
-            shareName: loyalty-volumes/orderer0
+            shareName: loyalty-volumes
             readOnly: false
         - name: orderer0-claim0
           azureFile:
@@ -98,11 +100,13 @@ spec:
         - name: orderer0-claim1
           azureFile:
             secretName: azure-loyaltydltsa-secret
-            shareName: crypto-config/ordererOrganizations/consortium/orderers/orderer0/msp
+#            shareName: crypto-config
+            shareName: orderer0-config
             readOnly: false
-        - name: orderer0-claim2
-          azureFile:
-            secretName: azure-loyaltydltsa-secret
-            shareName: crypto-config/ordererOrganizations/consortium/orderers/orderer0/tls
-            readOnly: false
+#        - name: orderer0-claim2
+#          azureFile:
+#            secretName: azure-loyaltydltsa-secret
+##            shareName: crypto-config
+#            shareName: orderer0-config
+#            readOnly: false
 

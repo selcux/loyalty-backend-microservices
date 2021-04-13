@@ -4,17 +4,13 @@
         "description": "This is the item API of LoyaltyDLT project",
         "title": "Item API",
         "contact": {},
-        "version": "1.0"
+        "version": "0.1"
     },
-    "host": "localhost:80",
     "basePath": "/",
     "paths": {
         "/items": {
             "get": {
                 "description": "Read all items",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -22,23 +18,9 @@
                     "item"
                 ],
                 "summary": "Read all items",
-                "parameters": [
-                    {
-                        "description": "Read all items",
-                        "name": "item",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/item.Entity"
-                            }
-                        }
-                    }
-                ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -96,9 +78,6 @@
         "/items/{id}": {
             "get": {
                 "description": "Read an item data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -108,18 +87,16 @@
                 "summary": "Read an item data",
                 "parameters": [
                     {
-                        "description": "Read an item",
-                        "name": "item",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/item.Entity"
-                        }
+                        "type": "string",
+                        "description": "Item ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/item.Entity"
                         }
@@ -134,9 +111,6 @@
             },
             "delete": {
                 "description": "Delete an item",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -146,21 +120,16 @@
                 "summary": "Delete an item",
                 "parameters": [
                     {
-                        "description": "Delete an item",
-                        "name": "item",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/item.Entity"
-                        }
+                        "type": "string",
+                        "description": "Item ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/item.Entity"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -184,6 +153,13 @@
                 "summary": "Update an item",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Item ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Update all items",
                         "name": "item",
                         "in": "body",
@@ -194,8 +170,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/item.Entity"
                         }

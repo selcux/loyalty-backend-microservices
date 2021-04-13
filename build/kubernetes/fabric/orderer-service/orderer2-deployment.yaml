@@ -66,7 +66,7 @@ spec:
               value: /var/hyperledger/orderer/tls/server.key
             - name: ORDERER_GENERAL_CLUSTER_ROOTCAS
               value: "[/var/hyperledger/orderer/tls/ca.crt]"
-          image: hyperledger/fabric-orderer:amd64-2.2.0
+          image: hyperledger/fabric-orderer:2.3
           name: orderer
           ports:
             - containerPort: 7050
@@ -74,20 +74,22 @@ spec:
           volumeMounts:
             - mountPath: /var/hyperledger/production
               name: orderer2-persistentdata
-#            - mountPath: /var/hyperledger/orderer/genesis.block
+              subPath: orderer2
             - mountPath: /channel-artifacts
               name: orderer2-claim0
             - mountPath: /var/hyperledger/orderer/msp
               name: orderer2-claim1
+              subPath: msp
             - mountPath: /var/hyperledger/orderer/tls
-              name: orderer2-claim2
+              name: orderer2-claim1
+              subPath: tls
           workingDir: /opt/gopath/src/github.com/hyperledger/fabric
       restartPolicy: Always
       volumes:
         - name: orderer2-persistentdata
           azureFile:
             secretName: azure-loyaltydltsa-secret
-            shareName: loyalty-volumes/orderer2
+            shareName: loyalty-volumes
             readOnly: false
         - name: orderer2-claim0
           azureFile:
@@ -98,10 +100,10 @@ spec:
         - name: orderer2-claim1
           azureFile:
             secretName: azure-loyaltydltsa-secret
-            shareName: crypto-config/ordererOrganizations/consortium/orderers/orderer2/msp
+            shareName: orderer2-config
             readOnly: false
-        - name: orderer2-claim2
-          azureFile:
-            secretName: azure-loyaltydltsa-secret
-            shareName: crypto-config/ordererOrganizations/consortium/orderers/orderer2/tls
-            readOnly: false
+#        - name: orderer2-claim2
+#          azureFile:
+#            secretName: azure-loyaltydltsa-secret
+#            shareName: orderer2-config
+#            readOnly: false

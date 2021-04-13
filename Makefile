@@ -19,7 +19,7 @@ else
 	$(BUILD_COMMAND)
 endif
 
-build: build-images clean-images
+build: build-images #clean-images
 
 #destroy: clean-images
 #	@docker-compose -f build/loyalty-dev/docker-compose.yml down

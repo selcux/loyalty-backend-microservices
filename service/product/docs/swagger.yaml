@@ -49,17 +49,14 @@ definitions:
       message:
         type: string
     type: object
-host: localhost:80
 info:
   contact: {}
   description: This is the product API of LoyaltyDLT project
   title: Product API
-  version: "1.0"
+  version: "0.1"
 paths:
   /products:
     get:
-      consumes:
-      - application/json
       description: Get all products
       produces:
       - application/json
@@ -104,23 +101,18 @@ paths:
       - product
   /products/{id}:
     delete:
-      consumes:
-      - application/json
       description: Delete a product data
       parameters:
-      - description: Delete Product
-        in: body
-        name: product
+      - description: Product ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/product.Product'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/product.Product'
+        "204":
+          description: ""
         "400":
           description: Bad Request
           schema:
@@ -129,21 +121,18 @@ paths:
       tags:
       - product
     get:
-      consumes:
-      - application/json
       description: Get a product data
       parameters:
-      - description: Read Product
-        in: body
-        name: product
+      - description: Product ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/product.Product'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/product.Product'
         "400":
@@ -158,6 +147,11 @@ paths:
       - application/json
       description: Update a product data
       parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
       - description: Update Product
         in: body
         name: product
@@ -167,8 +161,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/product.Product'
         "400":

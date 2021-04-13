@@ -54,10 +54,9 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Summary Read an item data
 // @Description Read an item data
 // @Tags item
-// @Accept json
 // @Produce json
-// @Param item body item.Entity true "Read an item"
-// @Success 201 {object} item.Entity
+// @Param id path string true "Item ID"
+// @Success 200 {object} item.Entity
 // @Failure 400 {object} util.ErrorResponse
 // @Router /items/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
@@ -85,10 +84,8 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Summary Read all items
 // @Description Read all items
 // @Tags item
-// @Accept json
 // @Produce json
-// @Param item body []item.Entity true "Read all items"
-// @Success 201 {object} []item.Entity
+// @Success 200 {object} []item.Entity
 // @Failure 400 {object} util.ErrorResponse
 // @Router /items [get]
 func (c *Controller) ReadAll(ctx echo.Context) error {
@@ -117,8 +114,9 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Tags item
 // @Accept json
 // @Produce json
+// @Param id path string true "Item ID"
 // @Param item body item.UpdateDto true "Update all items"
-// @Success 201 {object} item.Entity
+// @Success 200 {object} item.Entity
 // @Failure 400 {object} util.ErrorResponse
 // @Router /items/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
@@ -156,10 +154,9 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Summary Delete an item
 // @Description Delete an item
 // @Tags item
-// @Accept json
 // @Produce json
-// @Param item body item.Entity true "Delete an item"
-// @Success 201 {object} item.Entity
+// @Param id path string true "Item ID"
+// @Success 204
 // @Failure 400 {object} util.ErrorResponse
 // @Router /items/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {

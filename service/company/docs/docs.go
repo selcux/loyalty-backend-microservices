@@ -27,9 +27,6 @@ var doc = `{
         "/companies": {
             "get": {
                 "description": "Get all companies",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -37,23 +34,9 @@ var doc = `{
                     "company"
                 ],
                 "summary": "Read all company data",
-                "parameters": [
-                    {
-                        "description": "Read Companies",
-                        "name": "company",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/company.Company"
-                            }
-                        }
-                    }
-                ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -111,9 +94,6 @@ var doc = `{
         "/companies/{id}": {
             "get": {
                 "description": "Get a company data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -123,18 +103,16 @@ var doc = `{
                 "summary": "Read a company data",
                 "parameters": [
                     {
-                        "description": "Read Company",
-                        "name": "company",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/company.Company"
-                        }
+                        "type": "string",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/company.Company"
                         }
@@ -161,6 +139,13 @@ var doc = `{
                 "summary": "Update a company data",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Update Company",
                         "name": "company",
                         "in": "body",
@@ -171,8 +156,8 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/company.Company"
                         }
@@ -187,9 +172,6 @@ var doc = `{
             },
             "delete": {
                 "description": "Delete a company data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -199,21 +181,16 @@ var doc = `{
                 "summary": "Delete a company data",
                 "parameters": [
                     {
-                        "description": "Delete Company",
-                        "name": "company",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/company.Company"
-                        }
+                        "type": "string",
+                        "description": "Company ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/company.Company"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -285,7 +262,7 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "1.0",
-	Host:        "localhost:80",
+	Host:        "",
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "Company API",

@@ -1,0 +1,95 @@
+--- #---------------- Org1 Peer0 Deployment ---------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: peer0-org1
+  name: peer0-org1
+  namespace: hyperledger
+spec:
+  selector:
+    matchLabels:
+      app: peer0-org1
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: peer0-org1
+    spec:
+      containers:
+        - args:
+            - peer
+            - node
+            - start
+          env:
+            - name: CORE_VM_ENDPOINT
+              value: unix:///host/var/run/docker.sock
+            - name: FABRIC_LOGGING_SPEC
+              value: INFO
+            - name: CORE_PEER_TLS_ENABLED
+              value: "true"
+            - name: CORE_PEER_PROFILE_ENABLED
+              value: "true"
+            - name: CORE_PEER_TLS_CERT_FILE
+              value: /etc/hyperledger/fabric/tls/server.crt
+            - name: CORE_PEER_TLS_KEY_FILE
+              value: /etc/hyperledger/fabric/tls/server.key
+            - name: CORE_PEER_TLS_ROOTCERT_FILE
+              value: /etc/hyperledger/fabric/tls/ca.crt
+            - name: CORE_PEER_ID
+              value: peer0-org1
+            - name: CORE_PEER_ADDRESS
+              value: peer0-org1:7051
+            - name: CORE_PEER_LISTENADDRESS
+              value: 0.0.0.0:7051
+            - name: CORE_PEER_CHAINCODEADDRESS
+              value: peer0-org1:7052
+            - name: CORE_PEER_CHAINCODELISTENADDRESS
+              value: 0.0.0.0:7052
+            - name: CORE_PEER_GOSSIP_BOOTSTRAP
+              value: peer0-org1:7051
+            - name: CORE_PEER_GOSSIP_EXTERNALENDPOINT
+              value: peer0-org1:7051
+            - name: CORE_PEER_LOCALMSPID
+              value: Org1MSP
+          image: hyperledger/fabric-peer:2.3
+          name: peer0-org1
+          ports:
+            - containerPort: 7051
+            - containerPort: 7052
+          volumeMounts:
+            - mountPath: /var/hyperledger/production
+              name: peer0-org1-persistentdata
+              subPath: peer0-org1
+            - mountPath: /etc/hyperledger/fabric/msp
+              name: peer0-org1-claim1
+              subPath: msp
+            - mountPath: /etc/hyperledger/fabric/tls
+              name: peer0-org1-claim1
+              subPath: tls
+            - mountPath: /host/var/run/docker.sock
+              name: dockersock
+          workingDir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+      restartPolicy: Always
+      volumes:
+        - name: peer0-org1-persistentdata
+          azureFile:
+            secretName: azure-loyaltydltsa-secret
+            shareName: peer0-org1-production
+            readOnly: false
+        - name: peer0-org1-claim1
+          azureFile:
+            secretName: azure-loyaltydltsa-secret
+            shareName: peer0-org1
+            readOnly: false
+#        - name: peer0-org1-claim2
+#          azureFile:
+#            secretName: azure-loyaltydltsa-secret
+#            shareName: peer0-org1
+#            readOnly: true
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+

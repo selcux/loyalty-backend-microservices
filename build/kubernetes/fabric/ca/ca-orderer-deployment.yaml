@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: ca-orderer
+  name: ca-orderer
+  namespace: hyperledger
+spec:
+  selector:
+    matchLabels:
+      service: ca-orderer
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: ca-orderer
+    spec:
+      containers:
+        - name: ca-orderer
+          image: hyperledger/fabric-ca:latest
+          args:
+            - sh
+            - -c
+            - fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.consortium-cert.pem
+              --ca.keyfile /etc/hyperledger/fabric-ca-server-config/priv_sk
+              -b admin:adminpw -d
+#            - fabric-ca-server start -b admin:adminpw -d
+          ports:
+            - containerPort: 9054
+          env:
+            - name: FABRIC_CA_HOME
+              value: /etc/hyperledger/fabric-ca-server
+            - name: FABRIC_CA_SERVER_CA_NAME
+              value: ca-orderer
+            - name: FABRIC_CA_SERVER_TLS_ENABLED
+              value: "true"
+            - name: FABRIC_CA_SERVER_PORT
+              value: "9054"
+            - name: FABRIC_CA_SERVER_TLS_CERTFILE
+              value: /etc/hyperledger/fabric-ca-server-config/ca.consortium-cert.pem
+            - name: FABRIC_CA_SERVER_TLS_KEYFILE
+              value: /etc/hyperledger/fabric-ca-server-config/priv_sk
+          volumeMounts:
+            - mountPath: /etc/hyperledger/fabric-ca-server-config
+              name: ca-orderer-claim0
+              readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: ca-orderer-claim0
+          azureFile:
+            secretName: azure-loyaltydltsa-secret
+            shareName: crypto-config/ordererOrganizations/consortium/ca
+            readOnly: true

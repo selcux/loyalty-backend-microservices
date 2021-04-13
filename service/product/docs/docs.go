@@ -27,9 +27,6 @@ var doc = `{
         "/products": {
             "get": {
                 "description": "Get all products",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -97,9 +94,6 @@ var doc = `{
         "/products/{id}": {
             "get": {
                 "description": "Get a product data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -109,18 +103,16 @@ var doc = `{
                 "summary": "Read a product data",
                 "parameters": [
                     {
-                        "description": "Read Product",
-                        "name": "product",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/product.Product"
-                        }
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/product.Product"
                         }
@@ -135,9 +127,6 @@ var doc = `{
             },
             "delete": {
                 "description": "Delete a product data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -147,21 +136,16 @@ var doc = `{
                 "summary": "Delete a product data",
                 "parameters": [
                     {
-                        "description": "Delete Product",
-                        "name": "product",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/product.Product"
-                        }
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/product.Product"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -185,6 +169,13 @@ var doc = `{
                 "summary": "Update a product data",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Update Product",
                         "name": "product",
                         "in": "body",
@@ -195,8 +186,8 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/product.Product"
                         }
@@ -298,8 +289,8 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "1.0",
-	Host:        "localhost:80",
+	Version:     "0.1",
+	Host:        "",
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "Product API",

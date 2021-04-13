@@ -6,15 +6,11 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:80",
     "basePath": "/",
     "paths": {
         "/consumers": {
             "get": {
                 "description": "Get all consumer data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -22,23 +18,9 @@
                     "consumer"
                 ],
                 "summary": "Read all consumer data",
-                "parameters": [
-                    {
-                        "description": "Read all consumer",
-                        "name": "consumer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/consumer.Entity"
-                            }
-                        }
-                    }
-                ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -96,9 +78,6 @@
         "/consumers/{id}": {
             "get": {
                 "description": "Get a consumer data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -108,18 +87,16 @@
                 "summary": "Read a consumer data",
                 "parameters": [
                     {
-                        "description": "Read consumer",
-                        "name": "consumer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/consumer.Entity"
-                        }
+                        "type": "string",
+                        "description": "Consumer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/consumer.Entity"
                         }
@@ -134,9 +111,6 @@
             },
             "delete": {
                 "description": "Delete a consumer data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -146,21 +120,16 @@
                 "summary": "Delete a consumer data",
                 "parameters": [
                     {
-                        "description": "Delete a consumer",
-                        "name": "consumer",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/consumer.Entity"
-                        }
+                        "type": "string",
+                        "description": "Consumer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/consumer.Entity"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -191,11 +160,18 @@
                         "schema": {
                             "$ref": "#/definitions/consumer.Entity"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Consumer ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/consumer.Entity"
                         }
@@ -234,11 +210,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/consumer.ItemDto"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -274,11 +247,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/consumer.ItemDto"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",

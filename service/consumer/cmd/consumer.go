@@ -13,7 +13,6 @@ import (
 // @title Consumer API
 // @description This is the consumer API of LoyaltyDLT project
 // @version 1.0
-// @host localhost:80
 // @BasePath /
 func main() {
 	//conf := di.InitializeConfig()

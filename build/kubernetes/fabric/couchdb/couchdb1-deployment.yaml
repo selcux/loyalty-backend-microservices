@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    db: couchdb1
+  name: couchdb1
+  namespace: hyperledger
+spec:
+  selector:
+    matchLabels:
+      db: couchdb1
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        db: couchdb1
+    spec:
+      containers:
+        - name: couchdb1
+          image: couchdb:latest
+          ports:
+            - containerPort: 5984
+          env:
+            - name: COUCHDB_USER
+              value: admin
+            - name: COUCHDB_PASSWORD
+              value: adminpw
+      restartPolicy: Always

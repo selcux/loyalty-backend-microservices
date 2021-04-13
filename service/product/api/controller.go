@@ -83,10 +83,9 @@ func (c *Controller) Create(ctx echo.Context) error {
 // @Summary Read a product data
 // @Description Get a product data
 // @Tags product
-// @Accept json
 // @Produce json
-// @Param product body product.Product true "Read Product"
-// @Success 201 {object} product.Product
+// @Param id path string true "Product ID"
+// @Success 200 {object} product.Product
 // @Failure 400 {object} util.ErrorResponse
 // @Router /products/{id} [get]
 func (c *Controller) Read(ctx echo.Context) error {
@@ -114,7 +113,6 @@ func (c *Controller) Read(ctx echo.Context) error {
 // @Summary Read all product data
 // @Description Get all products
 // @Tags product
-// @Accept json
 // @Produce json
 // @Success 200 {object} []product.Product
 // @Failure 400 {object} util.ErrorResponse
@@ -147,8 +145,9 @@ func (c *Controller) ReadAll(ctx echo.Context) error {
 // @Tags product
 // @Accept json
 // @Produce json
+// @Param id path string true "Product ID"
 // @Param product body product.UpdateDto true "Update Product"
-// @Success 201 {object} product.Product
+// @Success 200 {object} product.Product
 // @Failure 400 {object} util.ErrorResponse
 // @Router /products/{id} [patch]
 func (c *Controller) Update(ctx echo.Context) error {
@@ -186,10 +185,9 @@ func (c *Controller) Update(ctx echo.Context) error {
 // @Summary Delete a product data
 // @Description Delete a product data
 // @Tags product
-// @Accept json
 // @Produce json
-// @Param product body product.Product true "Delete Product"
-// @Success 201 {object} product.Product
+// @Param id path string true "Product ID"
+// @Success 204
 // @Failure 400 {object} util.ErrorResponse
 // @Router /products/{id} [delete]
 func (c *Controller) Delete(ctx echo.Context) error {

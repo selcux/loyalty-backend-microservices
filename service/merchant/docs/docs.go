@@ -27,9 +27,6 @@ var doc = `{
         "/merchants": {
             "get": {
                 "description": "Get all merchants",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -37,23 +34,9 @@ var doc = `{
                     "merchant"
                 ],
                 "summary": "Read all merchant data",
-                "parameters": [
-                    {
-                        "description": "Read Merchants",
-                        "name": "merchant",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/merchant.Merchant"
-                            }
-                        }
-                    }
-                ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -111,9 +94,6 @@ var doc = `{
         "/merchants/{id}": {
             "get": {
                 "description": "Get a merchant data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -123,18 +103,16 @@ var doc = `{
                 "summary": "Read a merchant data",
                 "parameters": [
                     {
-                        "description": "Read Merchant",
-                        "name": "merchant",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/merchant.Merchant"
-                        }
+                        "type": "string",
+                        "description": "Merchant ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/merchant.Merchant"
                         }
@@ -168,11 +146,18 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/merchant.UpdateDto"
                         }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Merchant ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/merchant.Merchant"
                         }
@@ -187,9 +172,6 @@ var doc = `{
             },
             "delete": {
                 "description": "Delete a merchant data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -199,21 +181,16 @@ var doc = `{
                 "summary": "Delete a merchant data",
                 "parameters": [
                     {
-                        "description": "Delete Merchant",
-                        "name": "merchant",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/merchant.Merchant"
-                        }
+                        "type": "string",
+                        "description": "Merchant ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/merchant.Merchant"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -313,7 +290,7 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "1.0",
-	Host:        "localhost:80",
+	Host:        "",
 	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "Merchant API",

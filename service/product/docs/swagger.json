@@ -4,17 +4,13 @@
         "description": "This is the product API of LoyaltyDLT project",
         "title": "Product API",
         "contact": {},
-        "version": "1.0"
+        "version": "0.1"
     },
-    "host": "localhost:80",
     "basePath": "/",
     "paths": {
         "/products": {
             "get": {
                 "description": "Get all products",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -82,9 +78,6 @@
         "/products/{id}": {
             "get": {
                 "description": "Get a product data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -94,18 +87,16 @@
                 "summary": "Read a product data",
                 "parameters": [
                     {
-                        "description": "Read Product",
-                        "name": "product",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/product.Product"
-                        }
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/product.Product"
                         }
@@ -120,9 +111,6 @@
             },
             "delete": {
                 "description": "Delete a product data",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -132,21 +120,16 @@
                 "summary": "Delete a product data",
                 "parameters": [
                     {
-                        "description": "Delete Product",
-                        "name": "product",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/product.Product"
-                        }
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/product.Product"
-                        }
+                    "204": {
+                        "description": ""
                     },
                     "400": {
                         "description": "Bad Request",
@@ -170,6 +153,13 @@
                 "summary": "Update a product data",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
                         "description": "Update Product",
                         "name": "product",
                         "in": "body",
@@ -180,8 +170,8 @@
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/product.Product"
                         }

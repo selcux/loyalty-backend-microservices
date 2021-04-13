@@ -54,32 +54,20 @@ definitions:
       message:
         type: string
     type: object
-host: localhost:80
 info:
   contact: {}
   description: This is the item API of LoyaltyDLT project
   title: Item API
-  version: "1.0"
+  version: "0.1"
 paths:
   /items:
     get:
-      consumes:
-      - application/json
       description: Read all items
-      parameters:
-      - description: Read all items
-        in: body
-        name: item
-        required: true
-        schema:
-          items:
-            $ref: '#/definitions/item.Entity'
-          type: array
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             items:
               $ref: '#/definitions/item.Entity'
@@ -118,23 +106,18 @@ paths:
       - item
   /items/{id}:
     delete:
-      consumes:
-      - application/json
       description: Delete an item
       parameters:
-      - description: Delete an item
-        in: body
-        name: item
+      - description: Item ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/item.Entity'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/item.Entity'
+        "204":
+          description: ""
         "400":
           description: Bad Request
           schema:
@@ -143,21 +126,18 @@ paths:
       tags:
       - item
     get:
-      consumes:
-      - application/json
       description: Read an item data
       parameters:
-      - description: Read an item
-        in: body
-        name: item
+      - description: Item ID
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/item.Entity'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/item.Entity'
         "400":
@@ -172,6 +152,11 @@ paths:
       - application/json
       description: Update an item
       parameters:
+      - description: Item ID
+        in: path
+        name: id
+        required: true
+        type: string
       - description: Update all items
         in: body
         name: item
@@ -181,8 +166,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/item.Entity'
         "400":
